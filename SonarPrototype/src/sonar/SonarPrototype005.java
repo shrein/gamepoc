@@ -1,11 +1,11 @@
 package sonar;
 
 import java.util.ArrayList;
-
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import ddf.minim.AudioSample;
 import ddf.minim.Minim;
+import processing.opengl.PGraphics3D;
 
 public class SonarPrototype005 extends PApplet {
 

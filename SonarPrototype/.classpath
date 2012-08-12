@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="var" path="PROCESSING_HOME/core/library/core.jar" sourcepath="/PROCESSING_HOME/src/processing-read-only/processing/core/src"/>
-	<classpathentry kind="var" path="PROCESSING_HOME/core/library/gluegen-rt-natives-linux-amd64.jar"/>
-	<classpathentry kind="var" path="PROCESSING_HOME/core/library/jogl-all-natives-linux-amd64.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="var" path="PROCESSING_HOME/core/library/gluegen-rt.jar"/>
-	<classpathentry kind="var" path="PROCESSING_HOME/core/library/jogl-all.jar"/>
 	<classpathentry kind="lib" path="lib/jsminim.jar"/>
 	<classpathentry kind="lib" path="lib/minim-spi.jar"/>
 	<classpathentry kind="lib" path="lib/minim.jar"/>
 	<classpathentry kind="lib" path="lib/mp3spi1.9.4.jar"/>
 	<classpathentry kind="lib" path="lib/tritonus_aos.jar"/>
 	<classpathentry kind="lib" path="lib/tritonus_share.jar"/>
+	<classpathentry kind="var" path="PROCESSING_CORE_HOME/core.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/gluegen-rt-natives-linux-amd64.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/gluegen-rt-natives-linux-i586.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/gluegen-rt-natives-macosx-universal.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/gluegen-rt-natives-windows-amd64.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/gluegen-rt-natives-windows-i586.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/gluegen-rt.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/jogl-all-natives-linux-amd64.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/jogl-all-natives-linux-i586.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/jogl-all-natives-macosx-universal.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/jogl-all-natives-windows-amd64.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/jogl-all-natives-windows-i586.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/jogl.all.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/opengl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
