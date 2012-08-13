@@ -20,7 +20,6 @@
 	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/jogl-all-natives-macosx-universal.jar"/>
 	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/jogl-all-natives-windows-amd64.jar"/>
 	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/jogl-all-natives-windows-i586.jar"/>
-	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/jogl.all.jar"/>
-	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/opengl.jar"/>
+	<classpathentry kind="var" path="PROCESSING_OPENGL_HOME/library/jogl-all.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
