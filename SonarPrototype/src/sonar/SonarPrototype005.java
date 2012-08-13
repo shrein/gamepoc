@@ -53,16 +53,20 @@ public class SonarPrototype005 extends PApplet {
 	public void setup() {
 		setupGraphics();
 		setupObjects();
-		// setupSound();
+//		setupSound();
 		e.setup();
 	}
 
 	private void setupObjects() {
 		pMillis = 0;
+		enemiesKilled = 0;
 		utility = new Utility(this);
 		myShip = new Ship(this);
 		myHUD = new HUD(this);
-		myEnemies = createEnemies();
+		myEnemies = new ArrayList<Enemy>();
+		for (int i = 0; i < ENEMY_COUNT; i++) {
+			myEnemies.add(new Enemy(this));
+		}
 	}
 
 	private void setupGraphics() {
@@ -83,17 +87,6 @@ public class SonarPrototype005 extends PApplet {
 		rect(-1, -1, width + 2, height + 2);
 	}
 
-	private ArrayList<Enemy> createEnemies() {
-		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-		for (int i = 0; i < ENEMY_COUNT; i++) {
-			enemies.add(new Enemy(this));
-		}
-		return enemies;
-	}
-
-	public void update() {
-		System.out.println("Hey");
-	}
 
 	public void draw() {
 		tint(255, 255);
@@ -180,9 +173,7 @@ public class SonarPrototype005 extends PApplet {
 
 		if ((key == DELETE || key == BACKSPACE || key == RETURN || key == ENTER)
 				|| (key == 'r' || key == 'R')) {
-			enemiesKilled = 0;
-			myShip = new Ship(this);
-			createEnemies();
+			setupObjects();
 		}
 		
 		if(key == 'm' || key == 'M') {

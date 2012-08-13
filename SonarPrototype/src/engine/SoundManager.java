@@ -17,6 +17,7 @@ public class SoundManager implements ISoundManager {
 
 	public SoundManager(PApplet parent) {
 		this.parent = parent;
+		muted = false;
 	}
 
 	/*
@@ -29,7 +30,12 @@ public class SoundManager implements ISoundManager {
 		minim = new Minim(parent);
 		sounds = new HashMap<SoundEnum, AudioSample>();
 		for (SoundEnum s : SoundEnum.values()) {
-			AudioSample as = minim.loadSample(s.filename, s.bufferSize);
+			AudioSample as = null;
+			if (s.bufferSize != null) {
+				as = minim.loadSample(s.filename, s.bufferSize);
+			} else {
+				as = minim.loadSample(s.filename);
+			}
 			if (s.volume != null) {
 				as.setVolume(s.volume);
 			}
@@ -55,7 +61,7 @@ public class SoundManager implements ISoundManager {
 	 */
 	@Override
 	public void unmute() {
-		muted = false;
+		 muted = false;
 		// minim.getLineOut().unmute();
 	}
 

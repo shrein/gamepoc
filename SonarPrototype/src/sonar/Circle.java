@@ -56,7 +56,6 @@ PVector pos;
 
   public void drawBuffer() {
     if (alive) {
-
       this.sonarPrototype005.alphaBuffer.beginDraw();
       this.sonarPrototype005.alphaBuffer.stroke(255);
       this.sonarPrototype005.alphaBuffer.strokeWeight(8);
