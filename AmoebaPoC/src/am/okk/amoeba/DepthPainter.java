@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PGraphics;
 
 public class DepthPainter {

@@ -1,7 +1,6 @@
 package am.okk.amoeba;
 
 import processing.core.PGraphics;
-import processing.opengl.PGraphics3D;
 
 public interface Drawable extends Comparable<Drawable>{
 	

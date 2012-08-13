@@ -1,14 +1,15 @@
-package sonar;
+package engine;
 
 import processing.core.PVector;
+import sonar.SonarPrototype005;
 
-class Utility {
+public class Utility {
   /**
 	 * 
 	 */
 	private SonarPrototype005 sonarPrototype005;
 
-Utility(SonarPrototype005 sonarPrototype005) {
+public Utility(SonarPrototype005 sonarPrototype005) {
 	this.sonarPrototype005 = sonarPrototype005;
   }
 

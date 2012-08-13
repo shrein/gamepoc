@@ -1,11 +1,11 @@
 package sonar;
 
 import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PGraphics;
-import ddf.minim.AudioSample;
-import ddf.minim.Minim;
-import processing.opengl.PGraphics3D;
+import engine.Environment;
+import engine.Utility;
 
 public class SonarPrototype005 extends PApplet {
 
@@ -15,6 +15,8 @@ public class SonarPrototype005 extends PApplet {
 	private static final int ENEMY_COUNT = 30;
 	private static final int SCREEN_HEIGHT = 400;
 	private static final int SCREE_WIDTH = 640;
+
+	private final Environment e;
 
 	// enumerador chambon para tener mis constantes de teclado
 	final int _X = 0;
@@ -33,8 +35,7 @@ public class SonarPrototype005 extends PApplet {
 	Ship myShip;
 	HUD myHUD;
 	ArrayList<Enemy> myEnemies;
-	Minim minim;
-	AudioSample bulletSound, circleSound, enemySound;
+
 	PGraphics alphaBuffer;
 
 	int enemiesKilled;
@@ -44,10 +45,16 @@ public class SonarPrototype005 extends PApplet {
 	public float elapsed;
 	PGraphics g;
 
+	public SonarPrototype005() {
+		super();
+		this.e = new Environment(this);
+	}
+
 	public void setup() {
 		setupGraphics();
 		setupObjects();
-		setupSound();
+		// setupSound();
+		e.setup();
 	}
 
 	private void setupObjects() {
@@ -76,20 +83,16 @@ public class SonarPrototype005 extends PApplet {
 		rect(-1, -1, width + 2, height + 2);
 	}
 
-	private void setupSound() {
-		minim = new Minim(this);
-		bulletSound = minim.loadSample("pac.wav", 256);
-		circleSound = minim.loadSample("puwuw.wav", 256);
-		enemySound = minim.loadSample("puc.wav", 256);
-		bulletSound.setVolume(0.001f);
-	}
-
 	private ArrayList<Enemy> createEnemies() {
 		ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		for (int i = 0; i < ENEMY_COUNT; i++) {
 			enemies.add(new Enemy(this));
 		}
 		return enemies;
+	}
+
+	public void update() {
+		System.out.println("Hey");
 	}
 
 	public void draw() {
@@ -138,9 +141,9 @@ public class SonarPrototype005 extends PApplet {
 
 	public void stop() {
 		// always close Minim audio classes when you are done with them
-		bulletSound.close();
-		circleSound.close();
-		minim.stop();
+		// bulletSound.close();
+		// circleSound.close();
+		// minim.stop();
 
 		super.stop();
 	}
@@ -180,6 +183,14 @@ public class SonarPrototype005 extends PApplet {
 			enemiesKilled = 0;
 			myShip = new Ship(this);
 			createEnemies();
+		}
+		
+		if(key == 'm' || key == 'M') {
+			if(e.isMuted()) {
+				e.unmute();
+			} else {
+				e.mute();
+			}
 		}
 	}
 
@@ -249,6 +260,11 @@ public class SonarPrototype005 extends PApplet {
 
 	public String sketchRenderer() {
 		return P3D;
+	}
+
+	
+	public Environment getE() {
+		return e;
 	}
 
 	static public void main(String args[]) {

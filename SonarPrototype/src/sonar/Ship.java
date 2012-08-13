@@ -3,6 +3,8 @@ package sonar;
 import java.util.ArrayList;
 
 import processing.core.PVector;
+import engine.Environment;
+import engine.SoundEnum;
 
 class Ship {
 
@@ -10,8 +12,8 @@ class Ship {
 	 * 
 	 */
 	private SonarPrototype005 sonarPrototype005;
-	ArrayList myCircles;
-	ArrayList myBullets;
+	ArrayList<Circle> myCircles;
+	ArrayList<Bullet> myBullets;
 
 	BBox boundingBox;
 
@@ -27,20 +29,22 @@ class Ship {
 	float circleElapsed;
 
 	boolean alive;
+	private Environment e;
 
 	Ship(SonarPrototype005 sonarPrototype005) {
 
 		this.sonarPrototype005 = sonarPrototype005;
+		this.e = sonarPrototype005.getE();
 		alive = true;
 
 		boundingBox = new BBox(SonarPrototype005.CENTER);
-		myBullets = new ArrayList();
+		myBullets = new ArrayList<Bullet>();
 
 		for (int i = 0; i < maxBullets; i++) {
 			myBullets.add(new Bullet(this.sonarPrototype005));
 		}
 
-		myCircles = new ArrayList();
+		myCircles = new ArrayList<Circle>();
 		for (int i = 0; i < maxCircles; i++) {
 			myCircles.add(new Circle(this.sonarPrototype005));
 		}
@@ -142,7 +146,8 @@ class Ship {
 									-(this.sonarPrototype005.mouseY - pos.y)));
 						if (pKeys[this.sonarPrototype005._C])
 							currentBullet.spawn(pos, dir);
-						this.sonarPrototype005.bulletSound.trigger();
+						e.play(SoundEnum.BULLET);
+						// this.sonarPrototype005.bulletSound.trigger();
 						break;
 					}
 				}
@@ -156,7 +161,8 @@ class Ship {
 					Circle currentCircle = (Circle) myCircles.get(i);
 					if (!currentCircle.alive) {
 						currentCircle.spawn(pos);
-						this.sonarPrototype005.circleSound.trigger();
+						e.play(SoundEnum.CIRCLE);
+						// this.sonarPrototype005.circleSound.trigger();
 						break;
 					}
 				}
