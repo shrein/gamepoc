@@ -46,25 +46,23 @@ PVector pos;
       if (alive) {
       for (int i=0;i<=5;i++) {
         this.sonarPrototype005.stroke(scaleVel/8, scaleVel/4, scaleVel/2, 255-(i*50));
-        //stroke(scaleVel/8, (scaleVel+scale/2)/6, scaleVel/2, 255);
         this.sonarPrototype005.ellipseMode(SonarPrototype005.CENTER);
         this.sonarPrototype005.ellipse(pos.x, pos.y, scale-i*8, scale-i*8);
-          //ellipse(pos.x, pos.y, scale, scale);
       }
     }
   }
 
   public void drawBuffer() {
     if (alive) {
-      this.sonarPrototype005.alphaBuffer.beginDraw();
-      this.sonarPrototype005.alphaBuffer.stroke(255);
-      this.sonarPrototype005.alphaBuffer.strokeWeight(8);
-      this.sonarPrototype005.alphaBuffer.noFill();
-      this.sonarPrototype005.alphaBuffer.ellipseMode(SonarPrototype005.CENTER);
-      this.sonarPrototype005.alphaBuffer.ellipse(pos.x, pos.y, scale, scale);
-      //alphaBuffer.ellipse(pos.x, pos.y, scale, scale);
-      this.sonarPrototype005.alphaBuffer.endDraw();
-    }
+        for (int i=0;i<=5;i++) {
+        	this.sonarPrototype005.alphaBuffer.beginDraw();
+        	this.sonarPrototype005.alphaBuffer.stroke(255);
+        	this.sonarPrototype005.alphaBuffer.strokeWeight(8);
+        	this.sonarPrototype005.alphaBuffer.noFill();
+        	this.sonarPrototype005.alphaBuffer.ellipseMode(CENTER);
+        	this.sonarPrototype005.alphaBuffer.ellipse(pos.x, pos.y, scale-i*16, scale-i*16);
+        	this.sonarPrototype005.alphaBuffer.endDraw();
+          }    }
   }
   
   public void setScale(float pScaleVel){
