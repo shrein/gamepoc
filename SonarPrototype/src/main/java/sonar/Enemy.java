@@ -60,7 +60,7 @@ public class Enemy {
 			// ESTO DEBERIA ESTAR EN LA NAVE, NO EN LOS ENEMIGOS ...
 			if (boundingBox
 					.collisionTest(this.sonarPrototype005.myShip.boundingBox)) {
-				alive = false;
+				//alive = false;
 				this.sonarPrototype005.myShip.vel.set(0, 0, 0);
 				this.sonarPrototype005.myShip.alive = false;
 				for (int i = 0; i < this.sonarPrototype005.myShip.myCircles
