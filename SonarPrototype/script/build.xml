@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project SonarPrototype with Jar-in-Jar Loader">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="../release/SonarPlaytest005.jar">
+            <manifest>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="sonar.SonarPrototype005"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ jsminim.jar minim-spi.jar minim.jar mp3spi1.9.4.jar tritonus_aos.jar tritonus_share.jar core.jar gluegen-rt-natives-linux-amd64.jar gluegen-rt-natives-linux-i586.jar gluegen-rt-natives-macosx-universal.jar gluegen-rt-natives-windows-amd64.jar gluegen-rt-natives-windows-i586.jar gluegen-rt.jar jogl-all-natives-linux-amd64.jar jogl-all-natives-linux-i586.jar jogl-all-natives-macosx-universal.jar jogl-all-natives-windows-amd64.jar jogl-all-natives-windows-i586.jar jogl-all.jar"/>
+            </manifest>
+            <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="../bin"/>
+            <zipfileset dir="../lib" includes="jsminim.jar"/>
+            <zipfileset dir="../lib" includes="minim-spi.jar"/>
+            <zipfileset dir="../lib" includes="minim.jar"/>
+            <zipfileset dir="../lib" includes="mp3spi1.9.4.jar"/>
+            <zipfileset dir="../lib" includes="tritonus_aos.jar"/>
+            <zipfileset dir="../lib" includes="tritonus_share.jar"/>
+            <zipfileset dir="../lib" includes="core.jar"/>
+            <zipfileset dir="../lib" includes="gluegen-rt-natives-linux-amd64.jar"/>
+            <zipfileset dir="../lib" includes="gluegen-rt-natives-linux-i586.jar"/>
+            <zipfileset dir="../lib" includes="gluegen-rt-natives-macosx-universal.jar"/>
+            <zipfileset dir="../lib" includes="gluegen-rt-natives-windows-amd64.jar"/>
+            <zipfileset dir="../lib" includes="gluegen-rt-natives-windows-i586.jar"/>
+            <zipfileset dir="../lib" includes="gluegen-rt.jar"/>
+            <zipfileset dir="../lib" includes="jogl-all-natives-linux-amd64.jar"/>
+            <zipfileset dir="../lib" includes="jogl-all-natives-linux-i586.jar"/>
+            <zipfileset dir="../lib" includes="jogl-all-natives-macosx-universal.jar"/>
+            <zipfileset dir="../lib" includes="jogl-all-natives-windows-amd64.jar"/>
+            <zipfileset dir="../lib" includes="jogl-all-natives-windows-i586.jar"/>
+            <zipfileset dir="../lib" includes="jogl-all.jar"/>
+        </jar>
+    </target>
+</project>
