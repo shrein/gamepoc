@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import engine.Environment;
-import engine.Utility;
 
 public class SonarPrototype005 extends PApplet {
-
+	private static final long serialVersionUID = -6522220673321568582L;
+	
 	// TODO: hacer crclrand para ayudar a spawnear
 	// TODO: poner efectos de sonido mas decentes
-	private static final long serialVersionUID = -6522220673321568582L;
-	private static final int ENEMY_COUNT = 30;
-	private static final int SCREEN_HEIGHT = 400;
-	private static final int SCREE_WIDTH = 640;
+
 
 	private final Environment e;
 
@@ -30,61 +27,18 @@ public class SonarPrototype005 extends PApplet {
 
 	boolean[] keys = new boolean[8];
 
-	Utility utility;
-	Ship myShip;
-	HUD myHUD;
-	ArrayList<Enemy> myEnemies;
+	
 
-	PGraphics alphaBuffer;
+	
 
-	int enemiesKilled;
+	
 
-	// bbox constants
-	int pMillis;
-	public float elapsed;
-	PGraphics g;
 
-	public SonarPrototype005() {
-		super();
-		this.e = new Environment(this);
-	}
 
-	public void setup() {
-		setupGraphics();
-		setupObjects();
-//		setupSound();
-		e.setup();
-	}
 
-	private void setupObjects() {
-		pMillis = 0;
-		enemiesKilled = 0;
-		utility = new Utility(this);
-		myShip = new Ship(this);
-		myHUD = new HUD(this);
-		myEnemies = new ArrayList<Enemy>();
-		for (int i = 0; i < ENEMY_COUNT; i++) {
-			myEnemies.add(new Enemy(this));
-		}
-	}
 
-	private void setupGraphics() {
-		size(SCREE_WIDTH, SCREEN_HEIGHT, P3D);
-		hint(DISABLE_DEPTH_TEST);
-		// hint(ENABLE_NATIVE_FONTS);
-		noSmooth();
-		// smooth();
-		alphaBuffer = createGraphics(width, height, P3D);
 
-		alphaBuffer.beginDraw();
-		// alphaBuffer.background(0);
-		alphaBuffer.endDraw();
 
-		frameRate(60);
-		fill(0);
-		noStroke();
-		rect(-1, -1, width + 2, height + 2);
-	}
 
 
 	public void draw() {

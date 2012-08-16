@@ -7,7 +7,7 @@ import processing.core.PApplet;
 import ddf.minim.AudioSample;
 import ddf.minim.Minim;
 
-public class SoundManager implements ISoundManager {
+public class SoundManager {
 	private PApplet parent;
 	Minim minim;
 	AudioSample bulletSound, circleSound, enemySound;
@@ -20,12 +20,6 @@ public class SoundManager implements ISoundManager {
 		muted = false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see engine.ISoundManager#setup()
-	 */
-	@Override
 	public void setup() {
 		minim = new Minim(parent);
 		sounds = new HashMap<SoundEnum, AudioSample>();
@@ -43,62 +37,31 @@ public class SoundManager implements ISoundManager {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see engine.ISoundManager#mute()
-	 */
-	@Override
 	public void mute() {
 		muted = true;
 		// minim.getLineOut().mute();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see engine.ISoundManager#unmute()
-	 */
-	@Override
 	public void unmute() {
 		 muted = false;
 		// minim.getLineOut().unmute();
 	}
 
-	@Override
 	public boolean isMuted() {
 		return muted;
 		// return minim.getLineOut().isMuted();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see engine.ISoundManager#setVolume(float)
-	 */
-	@Override
 	public void setVolume(float volume) {
 		throw new UnsupportedOperationException();
 		// minim.getLineOut().setVolume(volume);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see engine.ISoundManager#getVolume()
-	 */
-	@Override
 	public float getVolume() {
 		throw new UnsupportedOperationException();
 		// return minim.getLineOut().getVolume();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see engine.ISoundManager#play(engine.SoundEnum)
-	 */
-	@Override
 	public void play(SoundEnum s) {
 		if (!muted) {
 			try {
