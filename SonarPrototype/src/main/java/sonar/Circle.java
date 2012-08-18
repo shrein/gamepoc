@@ -6,15 +6,15 @@ public class Circle {
   /**
 	 * 
 	 */
-	private SonarPrototype005 sonarPrototype005;
+	private SonarPrototype005 myPApplet;
 PVector pos;
   float scale;
   float scaleVel;
   boolean alive;
   float scaler;
 
-  public Circle(SonarPrototype005 sonarPrototype005) {
-    this.sonarPrototype005 = sonarPrototype005;
+  public Circle(SonarPrototype005 pPApplet) {
+    myPApplet = pPApplet;
 	pos=new PVector(0, 0);
     scale=0;
     alive=false;
@@ -26,16 +26,16 @@ PVector pos;
     alive=true;
     scale=0;
     scaleVel=scaler;
-    this.sonarPrototype005.alphaBuffer.beginDraw();
+    myPApplet.alphaBuffer.beginDraw();
     //alphaBuffer.background(0);
-    this.sonarPrototype005.alphaBuffer.endDraw();
+    myPApplet.alphaBuffer.endDraw();
   }
 
   public void update() {
     if (alive) {
       scaleVel*=0.975f;
       //scaleVel*=1;
-      scale+=scaleVel*this.sonarPrototype005.elapsed;
+      scale+=scaleVel*myPApplet.elapsed;
       if (scaleVel<=64) {
         alive=false;
       }
@@ -45,9 +45,9 @@ PVector pos;
   public void draw() {
       if (alive) {
       for (int i=0;i<=5;i++) {
-        this.sonarPrototype005.stroke(scaleVel/8, scaleVel/4, scaleVel/2, 255-(i*50));
-        this.sonarPrototype005.ellipseMode(sonarPrototype005.CENTER);
-        this.sonarPrototype005.ellipse(pos.x, pos.y, scale-i*8, scale-i*8);
+        myPApplet.stroke(scaleVel/8, scaleVel/4, scaleVel/2, 255-(i*50));
+        myPApplet.ellipseMode(SonarPrototype005.CENTER);
+        myPApplet.ellipse(pos.x, pos.y, scale-i*8, scale-i*8);
       }
     }
   }
@@ -55,13 +55,13 @@ PVector pos;
   public void drawBuffer() {
     if (alive) {
         for (int i=0;i<=5;i++) {
-        	this.sonarPrototype005.alphaBuffer.beginDraw();
-        	this.sonarPrototype005.alphaBuffer.stroke(255);
-        	this.sonarPrototype005.alphaBuffer.strokeWeight(8);
-        	this.sonarPrototype005.alphaBuffer.noFill();
-        	this.sonarPrototype005.alphaBuffer.ellipseMode(sonarPrototype005.CENTER);
-        	this.sonarPrototype005.alphaBuffer.ellipse(pos.x, pos.y, scale-i*16, scale-i*16);
-        	this.sonarPrototype005.alphaBuffer.endDraw();
+        	myPApplet.alphaBuffer.beginDraw();
+        	myPApplet.alphaBuffer.stroke(255);
+        	myPApplet.alphaBuffer.strokeWeight(8);
+        	myPApplet.alphaBuffer.noFill();
+        	myPApplet.alphaBuffer.ellipseMode(SonarPrototype005.CENTER);
+        	myPApplet.alphaBuffer.ellipse(pos.x, pos.y, scale-i*16, scale-i*16);
+        	myPApplet.alphaBuffer.endDraw();
           }    }
   }
   

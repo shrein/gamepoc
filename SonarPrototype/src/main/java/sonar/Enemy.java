@@ -6,7 +6,7 @@ import engine.SoundEnum;
 
 public class Enemy {
 
-	private SonarPrototype005 sonarPrototype005;
+	private SonarPrototype005 myPApplet;
 	private Environment e;
 
 	BBox boundingBox;
@@ -21,15 +21,15 @@ public class Enemy {
 
 	boolean alive;
 
-	public Enemy(SonarPrototype005 sonarPrototype005) {
-		this.sonarPrototype005 = sonarPrototype005;
-		this.e = sonarPrototype005.getE();
+	public Enemy(SonarPrototype005 pPApplet) {
+		myPApplet = pPApplet;
+		this.e = pPApplet.getE();
 		boundingBox = new BBox(SonarPrototype005.CENTER);
-		myCircle = new Circle(this.sonarPrototype005);
+		myCircle = new Circle(myPApplet);
 
 		pos = new PVector(
-				this.sonarPrototype005.random(this.sonarPrototype005.width),
-				this.sonarPrototype005.random(this.sonarPrototype005.height));
+				myPApplet.random(myPApplet.width),
+				myPApplet.random(myPApplet.height));
 		vel = new PVector(0, 0); // remember not to create new objects in
 									// runtime
 		alive = true;
@@ -41,71 +41,77 @@ public class Enemy {
 		myCircle.drawBuffer();
 
 		if (alive) {
-			if (this.sonarPrototype005.random(1) > 0.95f) {
-				vel.y += (4 * speed) - this.sonarPrototype005.random(speed * 8);
+			if (myPApplet.random(1) > 0.95f) {
+				vel.y += (4 * speed) - myPApplet.random(speed * 8);
 			}
-			if (this.sonarPrototype005.random(1) > 0.95f) {
-				vel.x += (4 * speed) - this.sonarPrototype005.random(speed * 8);
+			if (myPApplet.random(1) > 0.95f) {
+				vel.x += (4 * speed) - myPApplet.random(speed * 8);
 			}
 
 			vel.mult(drag);
-			pos.add(new PVector(vel.x * this.sonarPrototype005.elapsed, vel.y
-					* this.sonarPrototype005.elapsed));
-			pos = this.sonarPrototype005.utility.loopSpace(pos);
+			pos.add(new PVector(vel.x * myPApplet.elapsed, vel.y
+					* myPApplet.elapsed));
+			pos = myPApplet.utility.loopSpace(pos);
 
 			dir = SonarPrototype005.atan2(vel.x, -vel.y);
 
 			boundingBox.update(pos, 20);
 
-			// ESTO DEBERIA ESTAR EN LA NAVE, NO EN LOS ENEMIGOS ...
-			if (boundingBox
-					.collisionTest(this.sonarPrototype005.myShip.boundingBox)) {
+			//TODO: ESTO DEBERIA ESTAR EN LA NAVE, NO EN LOS ENEMIGOS ...
+			if (boundingBox.collisionTest(myPApplet.myShip.boundingBox)) {
+				/*TODO:este myPApplet.myShip.... me incomoda, ser‡ que es buena idea crear al principio
+				 un Ship myShip que se conecte con myPAplet.myShip? no se como manejar eso
+				 tampoco se como poner preguntas :P
+				*/
 				//alive = false;
-				this.sonarPrototype005.myShip.vel.set(0, 0, 0);
-				this.sonarPrototype005.myShip.alive = false;
-				for (int i = 0; i < this.sonarPrototype005.myShip.myCircles
+				if(myPApplet.myShip.alive){
+				e.play(SoundEnum.CIRCLE);
+				e.play(SoundEnum.BULLET);
+				e.play(SoundEnum.ENEMY);
+				myPApplet.myShip.vel.set(0, 0, 0);
+				myPApplet.myShip.alive = false;
+				
+				for (int i = 0; i < myPApplet.myShip.myCircles
 						.size(); i++) {
-					Circle currentCircle = (Circle) this.sonarPrototype005.myShip.myCircles
+					Circle currentCircle = (Circle) myPApplet.myShip.myCircles
 							.get(i);
 					if (!currentCircle.alive) {
 						currentCircle.setScale(1024);
 						currentCircle.spawn(pos);
-						e.play(SoundEnum.CIRCLE);
-						e.play(SoundEnum.BULLET);
-						// this.sonarPrototype005.circleSound.trigger();
-						// this.sonarPrototype005.bulletSound.trigger();
-						break;
+							break;
+						}
 					}
 				}
-				e.play(SoundEnum.ENEMY);
-				// this.sonarPrototype005.enemySound.trigger();
+				// myPApplet.circleSound.trigger();
+				// myPApplet.bulletSound.trigger();
+				// myPApplet.enemySound.trigger();
 			}
 
-			for (int i = 0; i < this.sonarPrototype005.myShip.myBullets.size(); i++) {
-				Bullet tempBullet = ((Bullet) this.sonarPrototype005.myShip.myBullets
+			for (int i = 0; i < myPApplet.myShip.myBullets.size(); i++) {
+				Bullet tempBullet = ((Bullet) myPApplet.myShip.myBullets
 						.get(i));
 				if (tempBullet.alive) {
 					if (boundingBox.collisionTest(tempBullet.boundingBox)) {
 						// ///////////daaamnnn//////////////////
 
-						if (this.sonarPrototype005.random(1) > 0.9f) {
+						if (myPApplet.random(1) > 0.9f) {
 							lucky = true;
 						} else {
 							lucky = false;
 						}
 
 						if (!lucky) {
-							myCircle.setScale(128);
+							myCircle.setScale(256);
 						}
 
 						alive = false;
 						tempBullet.alive = false;
-						this.sonarPrototype005.myShip.vel.set(0, 0, 0);
+						myPApplet.myShip.vel.set(0, 0, 0);
 						e.play(SoundEnum.ENEMY);
-						// this.sonarPrototype005.enemySound.trigger();
+						// myPApplet.enemySound.trigger();
 
 						myCircle.spawn(pos);
-						this.sonarPrototype005.enemiesKilled++;
+						myPApplet.enemiesKilled++;
 					}
 				}
 			}
@@ -116,19 +122,19 @@ public class Enemy {
 		myCircle.draw();
 
 		if (alive) {
-			this.sonarPrototype005.pushMatrix();
-			this.sonarPrototype005.translate(pos.x, pos.y);
-			this.sonarPrototype005.rotate(dir);
-			this.sonarPrototype005.stroke(255);
-			this.sonarPrototype005.noFill();
-			this.sonarPrototype005.beginShape();
-			this.sonarPrototype005.vertex(-4, -4);
-			this.sonarPrototype005.vertex(-4, 4);
-			this.sonarPrototype005.vertex(4, 4);
-			this.sonarPrototype005.vertex(4, -4);
-			this.sonarPrototype005.vertex(-4, -4);
-			this.sonarPrototype005.endShape();
-			this.sonarPrototype005.popMatrix();
+			myPApplet.pushMatrix();
+			myPApplet.translate(pos.x, pos.y);
+			myPApplet.rotate(dir);
+			myPApplet.stroke(255);
+			myPApplet.noFill();
+			myPApplet.beginShape();
+			myPApplet.vertex(-4, -4);
+			myPApplet.vertex(-4, 4);
+			myPApplet.vertex(4, 4);
+			myPApplet.vertex(4, -4);
+			myPApplet.vertex(-4, -4);
+			myPApplet.endShape();
+			myPApplet.popMatrix();
 		}
 	}
 }
