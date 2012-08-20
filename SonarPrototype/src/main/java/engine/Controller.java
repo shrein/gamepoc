@@ -25,7 +25,7 @@ public abstract class Controller implements KeyListener, MouseListener,
 	PApplet parent;
 	SoundManager sm;
 	PhysicsManager pm;
-	RenderManager dm;
+	RenderManager rm;
 
 	/**
 	 * The set of model instances to be updated in the game loop.
@@ -38,11 +38,11 @@ public abstract class Controller implements KeyListener, MouseListener,
 	 */
 	List<Model> viewList;
 
-	public Controller(PApplet parent) {
+	public Controller(PApplet parent, SoundManager sm, PhysicsManager pm, RenderManager rm) {
 		this.parent = parent;
-		sm = new SoundManager(parent);
-		pm = new PhysicsManager(parent);
-		dm = new RenderManager(parent);
+		this.sm = sm;
+		this.pm = pm;
+		this.rm = rm;
 	}
 
 	/**
@@ -52,7 +52,7 @@ public abstract class Controller implements KeyListener, MouseListener,
 	public void setup() {
 		sm.setup();
 		pm.setup();
-		dm.setup();
+		rm.setup();
 	}
 
 	/**

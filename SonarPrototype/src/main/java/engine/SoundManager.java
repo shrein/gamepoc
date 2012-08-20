@@ -7,6 +7,12 @@ import processing.core.PApplet;
 import ddf.minim.AudioSample;
 import ddf.minim.Minim;
 
+/**
+ * This class plays every sound. No workarounds.
+ * 
+ * @author shrein
+ *
+ */
 public class SoundManager {
 	private PApplet parent;
 	Minim minim;
@@ -61,7 +67,7 @@ public class SoundManager {
 		throw new UnsupportedOperationException();
 		// return minim.getLineOut().getVolume();
 	}
-
+	
 	public void play(SoundEnum s) {
 		if (!muted) {
 			try {

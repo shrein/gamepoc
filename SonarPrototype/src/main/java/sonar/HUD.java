@@ -25,11 +25,11 @@ PFont infoFont;
   }
 
   public void update(Ship pShip) {
-    maxCircle=pShip.circleDelay;
+    maxCircle=pShip.sonarDelay;
     circleTiming=pShip.circleElapsed;
 
-    maxBullet=pShip.bulletDelay;
-    bulletTiming=pShip.bulletElapsed;
+    maxBullet=pShip.gunDelay;
+    bulletTiming=pShip.gunElapsed;
   }
 
   public void draw() {

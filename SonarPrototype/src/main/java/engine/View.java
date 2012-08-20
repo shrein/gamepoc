@@ -7,15 +7,15 @@ import java.util.List;
  * 
  * Abstract class to be implemented for concrete views of Model classes. Each
  * view has the logic (but not the state) to draw and play the sounds (a.k.a.
- * sing)
+ * sing).
  * 
  * @author shrein
  * 
  */
 public abstract class View implements Comparable<View> {
 
-	final int viewDepth;
-	List<Model> modelReferences;
+	private final int viewDepth;
+	private List<Model> modelReferences;
 
 	public View(int depth) {
 		super();
@@ -37,6 +37,15 @@ public abstract class View implements Comparable<View> {
 	 */
 	public Iterable<Model> getModelReferencesIterable() {
 		return modelReferences;
+	}
+
+	/**
+	 * Returns the first referenced model in the collection.
+	 * 
+	 * @return First Model instance in the references.
+	 */
+	public Model getFirstModelReference() {
+		return modelReferences.get(0);
 	}
 
 	/**
@@ -70,23 +79,27 @@ public abstract class View implements Comparable<View> {
 	}
 
 	/**
-	 * Uses the RenderManager to draw the model instance on the scene.
+	 * Load view resources. Override as needed.
+	 */
+	public void setup(SoundManager sm, RenderManager rm) {
+		// Do nothing by default.
+	}
+
+	/**
+	 * Uses the RenderManager to draw the model instances (referenced by the
+	 * View) on the scene.
 	 * 
 	 * @param r
 	 *            The render manager.
-	 * @param m
-	 *            The specific model instance (e.g. Ship, Enemy, etc.)
 	 */
-	public abstract void draw(RenderManager r, Model m);
+	public abstract void draw(RenderManager r);
 
 	/**
 	 * Uses the SoundManager to play the sounds from the model instance.
 	 * 
 	 * @param r
 	 *            The render manager.
-	 * @param m
-	 *            The specific model instance (e.g. Ship, Enemy, etc.)
 	 */
-	public abstract void sing(SoundManager s, Model m);
+	public abstract void sing(SoundManager s);
 
 }

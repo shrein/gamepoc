@@ -1,17 +1,19 @@
 package sonar;
 
+import org.omg.CORBA.Environment;
+
 import processing.core.PVector;
-import engine.Environment;
+import engine.Model;
 import engine.SoundEnum;
 
-public class Enemy {
+public class Enemy extends Model {
 
 	private SonarPrototype005 sonarPrototype005;
 	private Environment e;
 
 	BBox boundingBox;
 
-	Circle myCircle;
+	Sonar myCircle;
 
 	PVector pos, vel;
 	float dir;
@@ -25,7 +27,7 @@ public class Enemy {
 		this.sonarPrototype005 = sonarPrototype005;
 		this.e = sonarPrototype005.getE();
 		boundingBox = new BBox(SonarPrototype005.CENTER);
-		myCircle = new Circle(this.sonarPrototype005);
+		myCircle = new Sonar(this.sonarPrototype005);
 
 		pos = new PVector(
 				this.sonarPrototype005.random(this.sonarPrototype005.width),
@@ -63,9 +65,9 @@ public class Enemy {
 				//alive = false;
 				this.sonarPrototype005.myShip.vel.set(0, 0, 0);
 				this.sonarPrototype005.myShip.alive = false;
-				for (int i = 0; i < this.sonarPrototype005.myShip.myCircles
+				for (int i = 0; i < this.sonarPrototype005.myShip.sonar
 						.size(); i++) {
-					Circle currentCircle = (Circle) this.sonarPrototype005.myShip.myCircles
+					Sonar currentCircle = (Sonar) this.sonarPrototype005.myShip.sonar
 							.get(i);
 					if (!currentCircle.alive) {
 						currentCircle.setScale(1024);

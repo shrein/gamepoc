@@ -1,8 +1,9 @@
 package sonar;
 
-import engine.PhysicsManager;
 import processing.core.PApplet;
 import processing.core.PVector;
+import engine.PhysicsManager;
+import engine.Vector;
 
 /**
  * @author fdevant
@@ -19,7 +20,7 @@ public class Utility extends PhysicsManager {
 		this.width = parent.getWidth();
 	}
 
-	public PVector loopSpace(PVector pPos) {
+	public Vector loopSpace(PVector pPos) {
 		float x, y;
 
 		x = pPos.x;
@@ -37,6 +38,6 @@ public class Utility extends PhysicsManager {
 		if (pPos.y < 0) {
 			y = height;
 		}
-		return new PVector(x, y);
+		return new Vector(x, y);
 	}
 }

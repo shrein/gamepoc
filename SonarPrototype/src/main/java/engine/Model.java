@@ -1,32 +1,71 @@
 package engine;
 
-import processing.core.PVector;
-
 /**
- * Abstract class that represents Model (stateful) objects.
+ * Abstract class that represents Model (stateful) objects. Views depend on
+ * Models, but not the other way around. Models may reference other models (i.e.
+ * the root Model in an aggregate references all its contained Models).
  * 
  * @author shrein
  * 
  */
-public abstract class Model implements Comparable<Integer> {
-	private PVector position;
-	private PVector velocity;
-	private float theta;
-	private float omega;
-	private int modelDepth;
-	private boolean visible;
-	private boolean alive;
-	private boolean ghost;
+public abstract class Model {
+	// Time step
+	protected Vector position = null;
+	protected double radius = 0d;
+	protected Vector velocity = null;
+	protected double theta = 0d;
+	protected double omega = 0d;
+	protected boolean visible = true;
+	protected boolean alive = true;
+	protected boolean ghost = false;
 
-	@Override
-	public int compareTo(Integer otherModelDepth) {
-		return (modelDepth - otherModelDepth);
+	private Vector tempV = new Vector(0f, 0f);
+
+	/**
+	 * Updates the model (specially on physically meaningful variables). Is
+	 * called by the PhysicsManager. Override as needed.
+	 * 
+	 * @param elapsed
+	 *            The time elapsed since the last time-step.
+	 */
+	public void update(double elapsed) {
+		// By default move following inertia.
+		position.add(new Vector(velocity.x * elapsed, velocity.y * elapsed));
 	}
+
+	// /**
+	// * Triggers the events related to the collision of this model instance
+	// with
+	// * another model instance (Accept method on the Visitor pattern). Usually
+	// no
+	// * need to override.
+	// *
+	// * @param m
+	// * The model that collided with this one.
+	// * @return true if there was an event triggered, or false otherwise.
+	// */
+	// public boolean acceptCollision(Model m) {
+	// return m.visitCollision(this);
+	// }
+
+	// /**
+	// * Triggers the events related to the collision of this model instance
+	// with
+	// * another model instance (Visit method on the Visitor pattern). Usually
+	// no need to override BUT there is a need to
+	// *
+	// * @param model
+	// * @return
+	// */
+	// public boolean visitCollision(Model model) {
+	// // Do nothing by default.
+	// return false;
+	// }
 
 	/**
 	 * @return Position vector.
 	 */
-	public PVector getPosition() {
+	public Vector getPosition() {
 		return position;
 	}
 
@@ -34,14 +73,29 @@ public abstract class Model implements Comparable<Integer> {
 	 * @param position
 	 *            Position vector.
 	 */
-	public void setPosition(PVector position) {
+	public void setPosition(Vector position) {
 		this.position = position;
+	}
+
+	/**
+	 * @return Radius of the circumscribed circle.
+	 */
+	public double getRadius() {
+		return radius;
+	}
+
+	/**
+	 * @param radius
+	 *            Radius of the circumscribed circle.
+	 */
+	public void setRadius(double radius) {
+		this.radius = radius;
 	}
 
 	/**
 	 * @return Velocity vector.
 	 */
-	public PVector getVelocity() {
+	public Vector getVelocity() {
 		return velocity;
 	}
 
@@ -49,23 +103,8 @@ public abstract class Model implements Comparable<Integer> {
 	 * @param velocity
 	 *            Velocity vector.
 	 */
-	public void setVelocity(PVector velocity) {
+	public void setVelocity(Vector velocity) {
 		this.velocity = velocity;
-	}
-
-	/**
-	 * @return Model depth.
-	 */
-	public int getModelDepth() {
-		return modelDepth;
-	}
-
-	/**
-	 * @param modelDepth
-	 *            Model depth.
-	 */
-	public void setModelDepth(int modelDepth) {
-		this.modelDepth = modelDepth;
 	}
 
 	/**
@@ -131,7 +170,7 @@ public abstract class Model implements Comparable<Integer> {
 	/**
 	 * @return Counterclockwise (CCW) angle respect the X-axis.
 	 */
-	public float getTheta() {
+	public double getTheta() {
 		return theta;
 	}
 
@@ -139,14 +178,14 @@ public abstract class Model implements Comparable<Integer> {
 	 * @param theta
 	 *            Counterclockwise (CCW) angle respect the X-axis.
 	 */
-	public void setTheta(float theta) {
+	public void setTheta(double theta) {
 		this.theta = theta;
 	}
 
 	/**
 	 * @return Counterclockwise (CCW) angular velocity;
 	 */
-	public float getOmega() {
+	public double getOmega() {
 		return omega;
 	}
 
@@ -156,21 +195,6 @@ public abstract class Model implements Comparable<Integer> {
 	 */
 	public void setOmega(float omega) {
 		this.omega = omega;
-	}
-
-	/**
-	 * @return Depth in the scene.
-	 */
-	public int getDepth() {
-		return modelDepth;
-	}
-
-	/**
-	 * @param depth
-	 *            Depth in the scene.
-	 */
-	public void setDepth(int depth) {
-		this.modelDepth = depth;
 	}
 
 	/**
@@ -218,5 +242,23 @@ public abstract class Model implements Comparable<Integer> {
 	public void setGhost(boolean ghost) {
 		this.ghost = ghost;
 	}
+
+	/**
+	 * @param elapsed
+	 *            Time-step for this step.
+	 * @return The position in the next time step. Useful for colission
+	 *         evaluation.
+	 */
+	public Vector getNextPosition(double elapsed) {
+		Vector.mult(velocity, elapsed, tempV);
+		Vector nextPosition = Vector.add(position, tempV);
+		return nextPosition;
+	}
+
+	/**
+	 * Clears all events on this model instance and on the inner models
+	 * instances managed by this one.
+	 */
+	public abstract void clearEvents();
 
 }

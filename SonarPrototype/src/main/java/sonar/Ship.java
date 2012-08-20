@@ -1,175 +1,158 @@
 package sonar;
 
+import static java.lang.Math.atan2;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+
 import java.util.ArrayList;
+import java.util.List;
 
-import processing.core.PVector;
-import engine.Environment;
-import engine.SoundEnum;
+import engine.Model;
+import engine.Vector;
 
-public class Ship {
+/**
+ * This is the Ship model class, and the root class in the aggregate
+ * Ship-Sonar-Bullets.
+ * 
+ * @author fdevant, shrein
+ * 
+ */
+public class Ship extends Model {
+
+	private static final double SHIP_RADIUS = 15d;
+
+	// Maybe shouldn't be here...
+	private Utility utility;
+
+	// Model objects managed by this root model object.
+	private Sonar sonar;
+	private List<Bullet> bullets;
+
+	// Custom state variables.
+	private double drag = 0.9d;
+	private int maxBullets = 20;
+	private double gunDelay = 0.5d;
+	private double gunElapsed = 0d;
+	private double acceleration = 16d;
+
+	// Event variables
+	private boolean dieEvent = false;
+
+	public Ship(Vector position, Utility utility) {
+		super();
+		alive = true;
+		radius = SHIP_RADIUS;
+
+		sonar = new Sonar();
+		bullets = new ArrayList<Bullet>();
+		for (int i = 0; i < maxBullets; i++) {
+			// myBullets.add(new Bullet());
+		}
+
+		this.position = new Vector(position.x, position.y);
+		this.velocity = new Vector(0f, 0f);
+		this.utility = utility;
+	}
 
 	/**
+	 * Apply a force to the ship (just like, say, "All power to the engines!").
+	 * 
+	 * @param angle
+	 *            The angle in which the force is applied.
+	 * @param elapsed
+	 *            The elapsed time since the last time-step.
+	 */
+	public void applyForce(double angle, double elapsed) {
+		theta = angle;
+		velocity.x += sin(angle) * acceleration * elapsed;
+		velocity.y += cos(angle) * acceleration * elapsed;
+	}
+
+	@Override
+	public void clearEvents() {
+		this.dieEvent = false;
+		sonar.clearEvents();
+		for (Bullet bullet : bullets) {
+			bullet.clearEvents();
+		}
+	}
+
+	/**
+	 * Triggers the DieEvent(TM), so that the view can react accordingly.
 	 * 
 	 */
-	private SonarPrototype005 sonarPrototype005;
-	ArrayList<Circle> myCircles;
-	ArrayList<Bullet> myBullets;
-
-	BBox boundingBox;
-
-	PVector pos, vel;
-	float dir;
-	float speed = 16;// speed multiplier
-	float drag = 0.9f;
-	int maxBullets = 20;
-	int maxCircles = 5;
-	float bulletDelay = 0.5f;
-	float bulletElapsed;
-	float circleDelay = 2;
-	float circleElapsed;
-
-	boolean alive;
-	private Environment e;
-
-	public Ship(SonarPrototype005 sonarPrototype005) {
-
-		this.sonarPrototype005 = sonarPrototype005;
-		this.e = sonarPrototype005.getE();
-		alive = true;
-
-		boundingBox = new BBox(SonarPrototype005.CENTER);
-		myBullets = new ArrayList<Bullet>();
-
-		for (int i = 0; i < maxBullets; i++) {
-			myBullets.add(new Bullet(this.sonarPrototype005));
-		}
-
-		myCircles = new ArrayList<Circle>();
-		for (int i = 0; i < maxCircles; i++) {
-			myCircles.add(new Circle(this.sonarPrototype005));
-		}
-
-		bulletElapsed = bulletDelay;
-		circleElapsed = circleDelay;
-
-		pos = new PVector(this.sonarPrototype005.width / 2,
-				this.sonarPrototype005.height / 2);
-		SonarPrototype005.println(pos);
-		vel = new PVector(0, 0); // remember not to create new objects in
-									// runtime
+	public void die() {
+		this.dieEvent = true;
+		this.alive = false;
+		sonar.triggerSonarEvent(position, Sonar.SonarType.DIE_SONAR);
 	}
 
-	public void update(boolean[] pKeys) {
-
-		for (int i = 0; i < myCircles.size(); i++) {
-			((Circle) myCircles.get(i)).update();
-			((Circle) myCircles.get(i)).drawBuffer();
-		}
-
-		if (alive) {
-
-			controlCall(pKeys);
-
-			for (int i = 0; i < myBullets.size(); i++) {
-				((Bullet) myBullets.get(i)).update();
-			}
-			bulletElapsed += this.sonarPrototype005.elapsed;
-
-			circleElapsed += this.sonarPrototype005.elapsed;
-
-			vel.mult(drag);
-			pos.add(new PVector(vel.x * this.sonarPrototype005.elapsed, vel.y
-					* this.sonarPrototype005.elapsed));
-			pos = this.sonarPrototype005.utility.loopSpace(pos);
-			if (vel.x != 0 || vel.y != 0) {
-				dir = SonarPrototype005.atan2(vel.x, -vel.y);
-			}
-			boundingBox.update(pos, 15);
-		}
-	}
-
-	public void draw() {
-
-		for (int i = 0; i < myCircles.size(); i++) {
-			((Circle) myCircles.get(i)).draw();
-		}
-
-		if (alive) {
-
-			for (int i = 0; i < myBullets.size(); i++) {
-				((Bullet) myBullets.get(i)).draw();
-			}
-
-			this.sonarPrototype005.pushMatrix();
-			this.sonarPrototype005.translate(pos.x, pos.y);
-			this.sonarPrototype005.rotate(dir);
-			this.sonarPrototype005.stroke(255);
-			this.sonarPrototype005.noFill();
-			this.sonarPrototype005.beginShape();
-			this.sonarPrototype005.vertex(-3, -6);
-			this.sonarPrototype005.vertex(3, -6);
-			this.sonarPrototype005.vertex(0, 6);
-			this.sonarPrototype005.vertex(-3, -6);
-			this.sonarPrototype005.endShape();
-			this.sonarPrototype005.popMatrix();
-		}
-	}
-
-	public void controlCall(boolean[] pKeys) {
-
-		if (pKeys[this.sonarPrototype005._UP]) {
-			vel.y -= speed;
-		}
-
-		if (pKeys[this.sonarPrototype005._DOWN]) {
-			vel.y += speed;
-		}
-
-		if (pKeys[this.sonarPrototype005._LEFT]) {
-			vel.x -= speed;
-		}
-
-		if (pKeys[this.sonarPrototype005._RIGHT]) {
-			vel.x += speed;
-		}
-
-		if (pKeys[this.sonarPrototype005._C]
-				|| pKeys[this.sonarPrototype005._CLICK]) {
-			if (bulletElapsed > bulletDelay) {
-				bulletElapsed = 0;
-				for (int i = 0; i < myBullets.size(); i++) {
-					Bullet currentBullet = (Bullet) myBullets.get(i);
-					if (!currentBullet.alive) {
-						if (pKeys[this.sonarPrototype005._CLICK])
-							currentBullet.spawn(pos, SonarPrototype005.atan2(
-									this.sonarPrototype005.mouseX - pos.x,
-									-(this.sonarPrototype005.mouseY - pos.y)));
-						if (pKeys[this.sonarPrototype005._C])
-							currentBullet.spawn(pos, dir);
-						e.play(SoundEnum.BULLET);
-						// this.sonarPrototype005.bulletSound.trigger();
-						break;
+	/**
+	 * Fires a bullet if the elapsed time since the last fired bullet is greater
+	 * than gunDelay.
+	 * 
+	 * @param target
+	 *            The position vector targeted by the bullet. If NULL, the
+	 *            current ship angle is used.
+	 */
+	public void fireBullet(Vector target) {
+		if (gunElapsed > gunDelay) {
+			gunElapsed = 0;
+			for (int i = 0; i < bullets.size(); i++) {
+				Bullet currentBullet = (Bullet) bullets.get(i);
+				if (!currentBullet.alive) {
+					double dir = theta;
+					if (target != null) {
+						dir = atan2(target.x - position.x,
+								-(target.y - position.y));
 					}
+					currentBullet.spawn(position, dir);
+					break;
 				}
 			}
 		}
+	}
 
-		if (pKeys[this.sonarPrototype005._X]) {
-			if (circleElapsed > circleDelay) {
-				circleElapsed = 0;
-				for (int i = 0; i < myCircles.size(); i++) {
-					Circle currentCircle = (Circle) myCircles.get(i);
-					if (!currentCircle.alive) {
-						currentCircle.spawn(pos);
-						e.play(SoundEnum.CIRCLE);
-						// this.sonarPrototype005.circleSound.trigger();
-						break;
-					}
-				}
-			}
+	/**
+	 * Fires the sonar.
+	 */
+	public void fireSonar() {
+		sonar.triggerSonarEvent(position, Sonar.SonarType.NORMAL_SONAR);
+	}
+
+	@Override
+	public void update(double elapsed) {
+		sonar.update(elapsed);
+
+		for (int i = 0; i < bullets.size(); i++) {
+			((Bullet) bullets.get(i)).update(elapsed);
 		}
 
-		if (pKeys[this.sonarPrototype005._Z]) {
-		}
+		gunElapsed += elapsed;
+
+		velocity.mult(drag);
+		position.add(new Vector(velocity.x * elapsed, velocity.y * elapsed));
+		position = utility.loopSpace(position);
+	}
+
+	/**
+	 * @return Sonar model for this ship
+	 */
+	public Sonar getSonar() {
+		return sonar;
+	}
+
+	/**
+	 * @return Bullets models for this ship.
+	 */
+	public List<Bullet> getMyBullets() {
+		return bullets;
+	}
+
+	/**
+	 * @return True if this Ship died since the last update.
+	 */
+	public boolean isDieEvent() {
+		return dieEvent;
 	}
 }
