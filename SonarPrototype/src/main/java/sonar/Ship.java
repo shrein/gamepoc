@@ -11,7 +11,7 @@ public class Ship {
 	/**
 	 * 
 	 */
-	private SonarPrototype005 myPApplet;
+	private SonarPrototype005 sonarPrototype005;
 	ArrayList<Circle> myCircles;
 	ArrayList<Bullet> myBullets;
 
@@ -31,29 +31,29 @@ public class Ship {
 	boolean alive;
 	private Environment e;
 
-	public Ship(SonarPrototype005 pPApplet) {
+	public Ship(SonarPrototype005 sonarPrototype005) {
 
-		myPApplet = pPApplet;
-		e = myPApplet.getE();
+		this.sonarPrototype005 = sonarPrototype005;
+		this.e = sonarPrototype005.getE();
 		alive = true;
 
 		boundingBox = new BBox(SonarPrototype005.CENTER);
 		myBullets = new ArrayList<Bullet>();
 
 		for (int i = 0; i < maxBullets; i++) {
-			myBullets.add(new Bullet(myPApplet));
+			myBullets.add(new Bullet(this.sonarPrototype005));
 		}
 
 		myCircles = new ArrayList<Circle>();
 		for (int i = 0; i < maxCircles; i++) {
-			myCircles.add(new Circle(myPApplet));
+			myCircles.add(new Circle(this.sonarPrototype005));
 		}
 
 		bulletElapsed = bulletDelay;
 		circleElapsed = circleDelay;
 
-		pos = new PVector(myPApplet.width / 2,
-				myPApplet.height / 2);
+		pos = new PVector(this.sonarPrototype005.width / 2,
+				this.sonarPrototype005.height / 2);
 		SonarPrototype005.println(pos);
 		vel = new PVector(0, 0); // remember not to create new objects in
 									// runtime
@@ -73,14 +73,14 @@ public class Ship {
 			for (int i = 0; i < myBullets.size(); i++) {
 				((Bullet) myBullets.get(i)).update();
 			}
-			bulletElapsed += myPApplet.elapsed;
+			bulletElapsed += this.sonarPrototype005.elapsed;
 
-			circleElapsed += myPApplet.elapsed;
+			circleElapsed += this.sonarPrototype005.elapsed;
 
 			vel.mult(drag);
-			pos.add(new PVector(vel.x * myPApplet.elapsed, vel.y
-					* myPApplet.elapsed));
-			pos = myPApplet.utility.loopSpace(pos);
+			pos.add(new PVector(vel.x * this.sonarPrototype005.elapsed, vel.y
+					* this.sonarPrototype005.elapsed));
+			pos = this.sonarPrototype005.utility.loopSpace(pos);
 			if (vel.x != 0 || vel.y != 0) {
 				dir = SonarPrototype005.atan2(vel.x, -vel.y);
 			}
@@ -100,61 +100,61 @@ public class Ship {
 				((Bullet) myBullets.get(i)).draw();
 			}
 
-			myPApplet.pushMatrix();
-			myPApplet.translate(pos.x, pos.y);
-			myPApplet.rotate(dir);
-			myPApplet.stroke(255);
-			myPApplet.noFill();
-			myPApplet.beginShape();
-			myPApplet.vertex(-3, -6);
-			myPApplet.vertex(3, -6);
-			myPApplet.vertex(0, 6);
-			myPApplet.vertex(-3, -6);
-			myPApplet.endShape();
-			myPApplet.popMatrix();
+			this.sonarPrototype005.pushMatrix();
+			this.sonarPrototype005.translate(pos.x, pos.y);
+			this.sonarPrototype005.rotate(dir);
+			this.sonarPrototype005.stroke(255);
+			this.sonarPrototype005.noFill();
+			this.sonarPrototype005.beginShape();
+			this.sonarPrototype005.vertex(-3, -6);
+			this.sonarPrototype005.vertex(3, -6);
+			this.sonarPrototype005.vertex(0, 6);
+			this.sonarPrototype005.vertex(-3, -6);
+			this.sonarPrototype005.endShape();
+			this.sonarPrototype005.popMatrix();
 		}
 	}
 
 	public void controlCall(boolean[] pKeys) {
 
-		if (pKeys[myPApplet._UP]) {
+		if (pKeys[this.sonarPrototype005._UP]) {
 			vel.y -= speed;
 		}
 
-		if (pKeys[myPApplet._DOWN]) {
+		if (pKeys[this.sonarPrototype005._DOWN]) {
 			vel.y += speed;
 		}
 
-		if (pKeys[myPApplet._LEFT]) {
+		if (pKeys[this.sonarPrototype005._LEFT]) {
 			vel.x -= speed;
 		}
 
-		if (pKeys[myPApplet._RIGHT]) {
+		if (pKeys[this.sonarPrototype005._RIGHT]) {
 			vel.x += speed;
 		}
 
-		if (pKeys[myPApplet._C]
-				|| pKeys[myPApplet._CLICK]) {
+		if (pKeys[this.sonarPrototype005._C]
+				|| pKeys[this.sonarPrototype005._CLICK]) {
 			if (bulletElapsed > bulletDelay) {
 				bulletElapsed = 0;
 				for (int i = 0; i < myBullets.size(); i++) {
 					Bullet currentBullet = (Bullet) myBullets.get(i);
 					if (!currentBullet.alive) {
-						if (pKeys[myPApplet._CLICK])
+						if (pKeys[this.sonarPrototype005._CLICK])
 							currentBullet.spawn(pos, SonarPrototype005.atan2(
-									myPApplet.mouseX - pos.x,
-									-(myPApplet.mouseY - pos.y)));
-						if (pKeys[myPApplet._C])
+									this.sonarPrototype005.mouseX - pos.x,
+									-(this.sonarPrototype005.mouseY - pos.y)));
+						if (pKeys[this.sonarPrototype005._C])
 							currentBullet.spawn(pos, dir);
 						e.play(SoundEnum.BULLET);
-						// myPApplet.bulletSound.trigger();
+						// this.sonarPrototype005.bulletSound.trigger();
 						break;
 					}
 				}
 			}
 		}
 
-		if (pKeys[myPApplet._X]) {
+		if (pKeys[this.sonarPrototype005._X]) {
 			if (circleElapsed > circleDelay) {
 				circleElapsed = 0;
 				for (int i = 0; i < myCircles.size(); i++) {
@@ -162,14 +162,14 @@ public class Ship {
 					if (!currentCircle.alive) {
 						currentCircle.spawn(pos);
 						e.play(SoundEnum.CIRCLE);
-						// myPApplet.circleSound.trigger();
+						// this.sonarPrototype005.circleSound.trigger();
 						break;
 					}
 				}
 			}
 		}
 
-		if (pKeys[myPApplet._Z]) {
+		if (pKeys[this.sonarPrototype005._Z]) {
 		}
 	}
 }

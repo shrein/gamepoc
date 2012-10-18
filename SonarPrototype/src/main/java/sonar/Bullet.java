@@ -7,7 +7,7 @@ public class Bullet {
   /**
 	 * 
 	 */
-	private SonarPrototype005 myPApplet;
+	private SonarPrototype005 sonarPrototype005;
 PVector pos, vel;
   float dir; 
   float speed=480;
@@ -19,7 +19,7 @@ PVector pos, vel;
 
   public Bullet(SonarPrototype005 sonarPrototype005) {
 
-    myPApplet = sonarPrototype005;
+    this.sonarPrototype005 = sonarPrototype005;
 	boundingBox=new BBox(SonarPrototype005.CENTER);
 
    
@@ -39,8 +39,8 @@ PVector pos, vel;
 
   public void update() {
     if (alive) {
-      pos.add(new PVector(vel.x*myPApplet.elapsed, -vel.y*myPApplet.elapsed));
-      age+=myPApplet.elapsed;
+      pos.add(new PVector(vel.x*this.sonarPrototype005.elapsed, -vel.y*this.sonarPrototype005.elapsed));
+      age+=this.sonarPrototype005.elapsed;
 
       boundingBox.update(pos, 5);
 
@@ -54,18 +54,18 @@ PVector pos, vel;
   public void draw() {
     if (alive) {
 
-      myPApplet.pushMatrix();
-      myPApplet.translate(pos.x, pos.y);
-      myPApplet.rotate(dir);
-      myPApplet.stroke(255);
-      myPApplet.noFill();
-      myPApplet.beginShape();
-      myPApplet.vertex(-1, -2);
-      myPApplet.vertex(1, -2);
-      myPApplet.vertex(0, 2);
-      myPApplet.vertex(-1, -2);
-      myPApplet.endShape();
-      myPApplet.popMatrix();
+      this.sonarPrototype005.pushMatrix();
+      this.sonarPrototype005.translate(pos.x, pos.y);
+      this.sonarPrototype005.rotate(dir);
+      this.sonarPrototype005.stroke(255);
+      this.sonarPrototype005.noFill();
+      this.sonarPrototype005.beginShape();
+      this.sonarPrototype005.vertex(-1, -2);
+      this.sonarPrototype005.vertex(1, -2);
+      this.sonarPrototype005.vertex(0, 2);
+      this.sonarPrototype005.vertex(-1, -2);
+      this.sonarPrototype005.endShape();
+      this.sonarPrototype005.popMatrix();
     }
   }
 }

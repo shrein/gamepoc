@@ -8,12 +8,9 @@ import engine.Utility;
 
 public class SonarPrototype005 extends PApplet {
 
-	// TODO: implementar "stages" o "screens" para poder tener diferentes pantallas
-	// TODO: implementar camara
 	// TODO: hacer crclrand para ayudar a spawnear
 	// TODO: poner efectos de sonido mas decentes
-	
-	private static final long serialVersionUID = -6522220673321568582L;//the fuck is this!?
+	private static final long serialVersionUID = -6522220673321568582L;
 	private static final int ENEMY_COUNT = 30;
 	private static final int SCREEN_HEIGHT = 400;
 	private static final int SCREE_WIDTH = 640;
@@ -74,7 +71,6 @@ public class SonarPrototype005 extends PApplet {
 	private void setupGraphics() {
 		size(SCREE_WIDTH, SCREEN_HEIGHT, P3D);
 		hint(DISABLE_DEPTH_TEST);
-		hint(DISABLE_TEXTURE_MIPMAPS);//con este puedo hacer lo de la pixeleada :o
 		// hint(ENABLE_NATIVE_FONTS);
 		noSmooth();
 		// smooth();
@@ -241,7 +237,8 @@ public class SonarPrototype005 extends PApplet {
 	}
 
 	// manejo de todas las teclas, cuando se presionan y cuando se sueltan
-	// ////////////////////CONTROLLER EVENTS END///////////////////////////////////
+	// ////////////////////CONTROLLER EVENTS
+	// END///////////////////////////////////
 
 	public int sketchWidth() {
 		return 640;

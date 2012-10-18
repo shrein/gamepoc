@@ -7,7 +7,7 @@ public class HUD {
   /**
 	 * 
 	 */
-	private SonarPrototype005 myPApplet;
+	private SonarPrototype005 sonarPrototype005;
 
 PFont infoFont;
 
@@ -18,10 +18,10 @@ PFont infoFont;
   float bulletTiming;
 
   public HUD(SonarPrototype005 sonarPrototype005) {
-    myPApplet = sonarPrototype005;
-	infoFont=myPApplet.loadFont("SansSerif-10.vlw");
-    myPApplet.textFont(infoFont);
-    myPApplet.enemiesKilled=0;
+    this.sonarPrototype005 = sonarPrototype005;
+	infoFont=this.sonarPrototype005.loadFont("SansSerif-10.vlw");
+    this.sonarPrototype005.textFont(infoFont);
+    this.sonarPrototype005.enemiesKilled=0;
   }
 
   public void update(Ship pShip) {
@@ -33,30 +33,30 @@ PFont infoFont;
   }
 
   public void draw() {
-    myPApplet.pushStyle();
-    myPApplet.stroke(255);
-    myPApplet.noStroke();
-    myPApplet.fill(128);
+    this.sonarPrototype005.pushStyle();
+    this.sonarPrototype005.stroke(255);
+    this.sonarPrototype005.noStroke();
+    this.sonarPrototype005.fill(128);
 
-    myPApplet.pushMatrix();
-    myPApplet.translate(5, 5);
-    myPApplet.rect(0, 0, 50, 2);
-    myPApplet.translate(0, 4);
-    myPApplet.rect(0, 0, 50, 2);
-    myPApplet.popMatrix();
+    this.sonarPrototype005.pushMatrix();
+    this.sonarPrototype005.translate(5, 5);
+    this.sonarPrototype005.rect(0, 0, 50, 2);
+    this.sonarPrototype005.translate(0, 4);
+    this.sonarPrototype005.rect(0, 0, 50, 2);
+    this.sonarPrototype005.popMatrix();
 
-    myPApplet.pushMatrix();
-    myPApplet.fill(255);
-    myPApplet.translate(5, 5);
-    myPApplet.rect(0, 0, SonarPrototype005.constrain(50+(maxCircle-circleTiming)/-maxCircle*50.0f, 0, 50), 2);
-    myPApplet.translate(0, 4);
-    myPApplet.rect(0, 0, SonarPrototype005.constrain(50+(maxBullet-bulletTiming)/-maxBullet*50.0f, 0, 50), 2);
-    myPApplet.popMatrix();
+    this.sonarPrototype005.pushMatrix();
+    this.sonarPrototype005.fill(255);
+    this.sonarPrototype005.translate(5, 5);
+    this.sonarPrototype005.rect(0, 0, SonarPrototype005.constrain(50+(maxCircle-circleTiming)/-maxCircle*50.0f, 0, 50), 2);
+    this.sonarPrototype005.translate(0, 4);
+    this.sonarPrototype005.rect(0, 0, SonarPrototype005.constrain(50+(maxBullet-bulletTiming)/-maxBullet*50.0f, 0, 50), 2);
+    this.sonarPrototype005.popMatrix();
 
 
-    myPApplet.text(SonarPrototype005.nf(myPApplet.frameRate, 2, 2)+"fps", 60, 12);
-        myPApplet.text(SonarPrototype005.nf(myPApplet.enemiesKilled, 2, 0)+"  enemies killed", 5, 24);
-    myPApplet.text("sonar (working title) POC v005. x,c + arrows or wasd + mouse clicks. backspace or enter: reset. m: mute", 5, myPApplet.height-5);
-    myPApplet.popStyle();
+    this.sonarPrototype005.text(SonarPrototype005.nf(this.sonarPrototype005.frameRate, 2, 2)+"fps", 60, 12);
+        this.sonarPrototype005.text(SonarPrototype005.nf(this.sonarPrototype005.enemiesKilled, 2, 0)+"  enemies killed", 5, 24);
+    this.sonarPrototype005.text("sonar (working title) POC v005. x,c + arrows or wasd + mouse clicks. backspace or enter: reset. m: mute", 5, this.sonarPrototype005.height-5);
+    this.sonarPrototype005.popStyle();
   }
 }
