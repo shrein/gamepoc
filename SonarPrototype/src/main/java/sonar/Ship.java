@@ -7,7 +7,6 @@ import static java.lang.Math.sin;
 import java.util.ArrayList;
 import java.util.List;
 
-import engine.Model;
 import engine.Vector;
 
 /**
@@ -17,11 +16,11 @@ import engine.Vector;
  * @author fdevant, shrein
  * 
  */
-public class Ship extends Model {
+public class Ship extends SonarModel {
 
 	private static final double SHIP_RADIUS = 15d;
 
-	// Maybe shouldn't be here...
+	// TODO:Maybe shouldn't be here...
 	private Utility utility;
 
 	// Model objects managed by this root model object.
@@ -55,7 +54,7 @@ public class Ship extends Model {
 	}
 
 	/**
-	 * Apply a force to the ship (just like, say, "All power to the engines!").
+	 * Apply a force to the ship ("All power to the engines!").
 	 * 
 	 * @param angle
 	 *            The angle in which the force is applied.
@@ -155,4 +154,11 @@ public class Ship extends Model {
 	public boolean isDieEvent() {
 		return dieEvent;
 	}
+
+	@Override
+	public CollisionEnum getCollisionClass() {
+		return CollisionEnum.SHIP;
+	}
+	
+	
 }

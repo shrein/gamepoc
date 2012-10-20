@@ -6,7 +6,7 @@ import processing.core.PVector;
 import engine.Model;
 import engine.SoundEnum;
 
-public class Enemy extends Model {
+public class Enemy extends SonarModel {
 
 	private SonarPrototype005 sonarPrototype005;
 	private Environment e;
@@ -133,4 +133,17 @@ public class Enemy extends Model {
 			this.sonarPrototype005.popMatrix();
 		}
 	}
+
+	@Override
+	public CollisionEnum getCollisionClass() {
+		return CollisionEnum.ENEMY;
+	}
+
+	@Override
+	public void clearEvents() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }

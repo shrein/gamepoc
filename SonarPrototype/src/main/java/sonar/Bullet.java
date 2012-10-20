@@ -3,7 +3,7 @@ package sonar;
 import processing.core.PVector;
 import engine.Model;
 
-public class Bullet extends Model {
+public class Bullet extends SonarModel {
 
 
 
@@ -65,4 +65,17 @@ public class Bullet extends Model {
 			this.sonarPrototype005.popMatrix();
 		}
 	}
+
+	@Override
+	public CollisionEnum getCollisionClass() {
+		return CollisionEnum.BULLET;
+	}
+
+	@Override
+	public void clearEvents() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }

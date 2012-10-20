@@ -33,8 +33,8 @@ public abstract class Controller implements KeyListener, MouseListener,
 	Set<Model> modelSet;
 
 	/**
-	 * The list of (stateless) views, sorted by depth, to be rendered and (its
-	 * sounds) played.
+	 * The list of (stateless) views, sorted by depth, to be rendered (and its
+	 * sounds played).
 	 */
 	List<Model> viewList;
 
