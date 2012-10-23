@@ -4,9 +4,11 @@ import processing.core.PVector;
 import engine.Environment;
 import engine.SoundEnum;
 
+
 public class Enemy {
 
 	private SonarPrototype005 sonarPrototype005;
+	private LevelState myState;
 	private Environment e;
 
 	BBox boundingBox;
@@ -17,12 +19,13 @@ public class Enemy {
 	float dir;
 	float speed = 25;// speed multiplier
 	float drag = 0.95f;
-	boolean lucky;
 
 	boolean alive;
+	boolean lucky;
 
-	public Enemy(SonarPrototype005 sonarPrototype005) {
+	public Enemy(SonarPrototype005 sonarPrototype005, LevelState pState) {
 		this.sonarPrototype005 = sonarPrototype005;
+		myState=pState;
 		this.e = sonarPrototype005.getE();
 		boundingBox = new BBox(SonarPrototype005.CENTER);
 		myCircle = new Circle(this.sonarPrototype005);
@@ -51,7 +54,7 @@ public class Enemy {
 			vel.mult(drag);
 			pos.add(new PVector(vel.x * this.sonarPrototype005.elapsed, vel.y
 					* this.sonarPrototype005.elapsed));
-			pos = this.sonarPrototype005.utility.loopSpace(pos);
+			pos = myState.utility.loopSpace(pos);
 
 			dir = SonarPrototype005.atan2(vel.x, -vel.y);
 
@@ -59,13 +62,13 @@ public class Enemy {
 
 			// ESTO DEBERIA ESTAR EN LA NAVE, NO EN LOS ENEMIGOS ...
 			if (boundingBox
-					.collisionTest(this.sonarPrototype005.myShip.boundingBox)) {
+					.collisionTest(myState.myShip.boundingBox)) {
 				//alive = false;
-				this.sonarPrototype005.myShip.vel.set(0, 0, 0);
-				this.sonarPrototype005.myShip.alive = false;
-				for (int i = 0; i < this.sonarPrototype005.myShip.myCircles
+				myState.myShip.vel.set(0, 0, 0);
+				myState.myShip.alive = false;
+				for (int i = 0; i < myState.myShip.myCircles
 						.size(); i++) {
-					Circle currentCircle = (Circle) this.sonarPrototype005.myShip.myCircles
+					Circle currentCircle = (Circle) myState.myShip.myCircles
 							.get(i);
 					if (!currentCircle.alive) {
 						currentCircle.setScale(1024);
@@ -81,8 +84,8 @@ public class Enemy {
 				// this.sonarPrototype005.enemySound.trigger();
 			}
 
-			for (int i = 0; i < this.sonarPrototype005.myShip.myBullets.size(); i++) {
-				Bullet tempBullet = ((Bullet) this.sonarPrototype005.myShip.myBullets
+			for (int i = 0; i < myState.myShip.myBullets.size(); i++) {
+				Bullet tempBullet = ((Bullet) myState.myShip.myBullets
 						.get(i));
 				if (tempBullet.alive) {
 					if (boundingBox.collisionTest(tempBullet.boundingBox)) {
@@ -100,12 +103,12 @@ public class Enemy {
 
 						alive = false;
 						tempBullet.alive = false;
-						this.sonarPrototype005.myShip.vel.set(0, 0, 0);
+						myState.myShip.vel.set(0, 0, 0);
 						e.play(SoundEnum.ENEMY);
 						// this.sonarPrototype005.enemySound.trigger();
 
 						myCircle.spawn(pos);
-						this.sonarPrototype005.enemiesKilled++;
+						myState.enemiesKilled++;
 					}
 				}
 			}

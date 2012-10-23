@@ -8,6 +8,7 @@ public class HUD {
 	 * 
 	 */
 	private SonarPrototype005 sonarPrototype005;
+	private LevelState myState;
 
 PFont infoFont;
 
@@ -17,11 +18,12 @@ PFont infoFont;
   float maxBullet;
   float bulletTiming;
 
-  public HUD(SonarPrototype005 sonarPrototype005) {
+  public HUD(SonarPrototype005 sonarPrototype005,LevelState pState) {
+	 myState=pState;
     this.sonarPrototype005 = sonarPrototype005;
 	infoFont=this.sonarPrototype005.loadFont("SansSerif-10.vlw");
     this.sonarPrototype005.textFont(infoFont);
-    this.sonarPrototype005.enemiesKilled=0;
+    myState.enemiesKilled=0;
   }
 
   public void update(Ship pShip) {
@@ -55,7 +57,7 @@ PFont infoFont;
 
 
     this.sonarPrototype005.text(SonarPrototype005.nf(this.sonarPrototype005.frameRate, 2, 2)+"fps", 60, 12);
-        this.sonarPrototype005.text(SonarPrototype005.nf(this.sonarPrototype005.enemiesKilled, 2, 0)+"  enemies killed", 5, 24);
+        this.sonarPrototype005.text(SonarPrototype005.nf(myState.enemiesKilled, 2, 0)+"  enemies killed", 5, 24);
     this.sonarPrototype005.text("sonar (working title) POC v005. x,c + arrows or wasd + mouse clicks. backspace or enter: reset. m: mute", 5, this.sonarPrototype005.height-5);
     this.sonarPrototype005.popStyle();
   }

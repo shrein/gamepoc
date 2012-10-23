@@ -1,22 +1,25 @@
 package sonar;
-import java.util.ArrayList;
+
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import engine.Environment;
-import engine.Utility;
+
 
 public class SonarPrototype005 extends PApplet {
 
 	// TODO: hacer crclrand para ayudar a spawnear
 	// TODO: poner efectos de sonido mas decentes
 	private static final long serialVersionUID = -6522220673321568582L;
-	private static final int ENEMY_COUNT = 30;
-	private static final int SCREEN_HEIGHT = 400;
-	private static final int SCREE_WIDTH = 640;
+	private static final int SCREEN_HEIGHT = 600;
+	private static final int SCREE_WIDTH = 800;
 
 	private final Environment e;
+	
+	LevelState myLevelState;
+	PGraphics alphaBuffer;
 
+	
 	// enumerador chambon para tener mis constantes de teclado
 	final int _X = 0;
 	final int _C = 1;
@@ -30,14 +33,6 @@ public class SonarPrototype005 extends PApplet {
 
 	boolean[] keys = new boolean[8];
 
-	Utility utility;
-	Ship myShip;
-	HUD myHUD;
-	ArrayList<Enemy> myEnemies;
-
-	PGraphics alphaBuffer;
-
-	int enemiesKilled;
 
 	// bbox constants
 	int pMillis;
@@ -54,18 +49,12 @@ public class SonarPrototype005 extends PApplet {
 		setupObjects();
 //		setupSound();
 		e.setup();
+		myLevelState.setup();
 	}
 
 	private void setupObjects() {
 		pMillis = 0;
-		enemiesKilled = 0;
-		utility = new Utility(this);
-		myShip = new Ship(this);
-		myHUD = new HUD(this);
-		myEnemies = new ArrayList<Enemy>();
-		for (int i = 0; i < ENEMY_COUNT; i++) {
-			myEnemies.add(new Enemy(this));
-		}
+		myLevelState= new LevelState(this);
 	}
 
 	private void setupGraphics() {
@@ -74,7 +63,8 @@ public class SonarPrototype005 extends PApplet {
 		// hint(ENABLE_NATIVE_FONTS);
 		noSmooth();
 		// smooth();
-		alphaBuffer = createGraphics(width, height, P3D);
+		
+		alphaBuffer = createGraphics(width,height,P3D);
 
 		alphaBuffer.beginDraw();
 		// alphaBuffer.background(0);
@@ -88,45 +78,7 @@ public class SonarPrototype005 extends PApplet {
 
 
 	public void draw() {
-		tint(255, 255);
-
-		blendMode(BLEND);
-		elapsed = PApplet.parseFloat(millis() - pMillis) / 1000;
-		pMillis = millis();
-
-		myShip.update(keys);
-		myHUD.update(myShip);
-
-		for (int i = 0; i < myEnemies.size(); i++) {
-			((Enemy) myEnemies.get(i)).update();
-		}
-
-		fill(0, 64);
-		noStroke();
-		rect(-1, -1, width + 2, height + 2);
-
-		for (int i = 0; i < myEnemies.size(); i++) {
-			((Enemy) myEnemies.get(i)).draw();
-		}
-
-		// blendMode(BLEND);
-		alphaBuffer.beginDraw();
-		alphaBuffer.fill(0, 16);
-		alphaBuffer.noStroke();
-		alphaBuffer.rect(-1, -1, width + 2, height + 2);
-		// alphaBuffer.background(0);
-		alphaBuffer.endDraw();
-
-		noStroke();
-		// blend(alphaBuffer, 0, 0, width, height, 0, 0, width, height,
-		// MULTIPLY);
-
-		blendMode(DARKEST);
-		image(alphaBuffer, 0, 0);
-
-		blendMode(BLEND);
-		myShip.draw();
-		myHUD.draw();
+		myLevelState.draw();
 	}
 
 	// ////////////////////////////Close Events////////////////////////////

@@ -12,6 +12,7 @@ public class Ship {
 	 * 
 	 */
 	private SonarPrototype005 sonarPrototype005;
+	private LevelState myState;
 	ArrayList<Circle> myCircles;
 	ArrayList<Bullet> myBullets;
 
@@ -31,8 +32,8 @@ public class Ship {
 	boolean alive;
 	private Environment e;
 
-	public Ship(SonarPrototype005 sonarPrototype005) {
-
+	public Ship(SonarPrototype005 sonarPrototype005, LevelState pState) {
+		myState=pState;
 		this.sonarPrototype005 = sonarPrototype005;
 		this.e = sonarPrototype005.getE();
 		alive = true;
@@ -80,7 +81,7 @@ public class Ship {
 			vel.mult(drag);
 			pos.add(new PVector(vel.x * this.sonarPrototype005.elapsed, vel.y
 					* this.sonarPrototype005.elapsed));
-			pos = this.sonarPrototype005.utility.loopSpace(pos);
+			pos = myState.utility.loopSpace(pos);
 			if (vel.x != 0 || vel.y != 0) {
 				dir = SonarPrototype005.atan2(vel.x, -vel.y);
 			}
