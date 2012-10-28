@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.gamepoc.org/RenderProperties" xmlns:tns="http://www.gamepoc.org/RenderProperties"
+	elementFormDefault="unqualified">
+
+	<xs:element name="renderProperties" type="tns:RenderProperties" />
+
+	<xs:complexType name="RenderProperties">
+		<xs:sequence>
+			<xs:element name="layer" type="tns:LayerProperties"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attributeGroup ref="tns:RenderAttributes" />
+	</xs:complexType>
+
+	<xs:complexType name="LayerProperties">
+		<xs:attributeGroup ref="tns:LayerAttributes" />
+	</xs:complexType>
+
+	<xs:attributeGroup name="LayerAttributes">
+		<xs:attribute name="name" />
+		<xs:attribute name="depth" />
+		<xs:attributeGroup ref="tns:RenderAttributes" />
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="RenderAttributes">
+		<xs:attribute name="colorMode" default="RGB">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="RGB" />
+					<xs:enumeration value="HSB" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ellipseMode" default="CENTER">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="CENTER" />
+					<xs:enumeration value="RADIUS" />
+					<xs:enumeration value="CORNER" />
+					<xs:enumeration value="CORNERS" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="rectMode" default="CORNER">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="CENTER" />
+					<xs:enumeration value="CORNER" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="imageMode" default="CORNER">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="CENTER" />
+					<xs:enumeration value="CORNER" />
+					<xs:enumeration value="CORNERS" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="shapeMode" default="CORNER">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="CENTER" />
+					<xs:enumeration value="CORNER" />
+					<xs:enumeration value="CORNERS" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="textMode" default="MODEL">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="SCREEN" />
+					<xs:enumeration value="MODEL" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="textureMode" default="IMAGE">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="IMAGE" />
+					<xs:enumeration value="NORMALIZED" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="renderMode" default="NORMAL">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="NORMAL" />
+					<xs:enumeration value="BLEND" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:attributeGroup>
+
+</xs:schema>

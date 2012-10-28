@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:renderProperties colorMode="RGB" ellipseMode="CENTER"
+	imageMode="CORNER" rectMode="CORNER" shapeMode="CORNER" textMode="MODEL"
+	textureMode="IMAGE" xmlns:tns="http://www.gamepoc.org/RenderProperties"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.gamepoc.org/RenderProperties ../engine/properties/RenderProperties.xsd ">
+	<layer name="HUD" depth=""/>
+	<layer name="SHIP" depth=""/>
+	<layer name="ENEMIES" depth=""/>
+	<layer name="BULLETS" depth=""/>
+	<layer name="SONAR" depth="" renderMode="BLEND"/>
+</tns:renderProperties>
