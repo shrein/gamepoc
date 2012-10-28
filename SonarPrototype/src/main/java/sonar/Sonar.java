@@ -26,9 +26,8 @@ public class Sonar extends Model {
 	private boolean dieSonarEvent = false;
 
 	public Sonar() {
-		position = new Vector(0d, 0d);
-		velocity = new Vector(0d, 0d);
-		scale = 0d;
+		position = new Vector(0d,0d);
+		velocity = new Vector(0d,0d);
 		alive = false;
 	}
 
@@ -42,7 +41,7 @@ public class Sonar extends Model {
 		}
 	}
 
-	public void triggerSonarEvent(Vector position, SonarType type) {
+	public void triggerSonarEvent(Vector _position, SonarType type) {
 		if (circleElapsed > circleDelay) {
 			this.position.set(position);
 			circleElapsed = 0d;
@@ -55,7 +54,6 @@ public class Sonar extends Model {
 			} else if (type == SonarType.DIE_SONAR) {
 				scaleSpeed = DIE_SCALER;
 			}
-
 		}
 	}
 

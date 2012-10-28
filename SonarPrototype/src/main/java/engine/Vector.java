@@ -59,5 +59,9 @@ public class Vector extends PVector {
 	public void sub(double x, double y, double z) {
 		super.sub((float) x, (float) y, (float) z);
 	}
+	
+	public void set(Vector v) {
+		super.set(v);
+	}
 
 }

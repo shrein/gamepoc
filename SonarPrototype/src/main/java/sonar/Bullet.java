@@ -5,8 +5,6 @@ import engine.Model;
 
 public class Bullet extends SonarModel {
 
-
-
 	double speed = 480;
 	BBox boundingBox;
 
@@ -14,7 +12,7 @@ public class Bullet extends SonarModel {
 	float life = 2;
 	float age;
 
-	public Bullet(SonarPrototype005 sonarPrototype005) {
+	public Bullet(Ship ship) {
 
 		this.sonarPrototype005 = sonarPrototype005;
 		boundingBox = new BBox(SonarPrototype005.CENTER);
@@ -74,8 +72,7 @@ public class Bullet extends SonarModel {
 	@Override
 	public void clearEvents() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
+
 }
