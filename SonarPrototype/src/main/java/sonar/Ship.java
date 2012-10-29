@@ -33,11 +33,17 @@ public class Ship {
 	private Environment e;
 
 	public Ship(SonarPrototype005 sonarPrototype005, LevelState pState) {
+		
 		myState=pState;
 		this.sonarPrototype005 = sonarPrototype005;
 		this.e = sonarPrototype005.getE();
+	
+	}
+	
+	void setup(){
 		alive = true;
-
+		SonarPrototype005.println("new ship created "+alive);
+		
 		boundingBox = new BBox(SonarPrototype005.CENTER);
 		myBullets = new ArrayList<Bullet>();
 
@@ -55,9 +61,8 @@ public class Ship {
 
 		pos = new PVector(this.sonarPrototype005.width / 2,
 				this.sonarPrototype005.height / 2);
-		SonarPrototype005.println(pos);
 		vel = new PVector(0, 0); // remember not to create new objects in
-									// runtime
+									// runtime		
 	}
 
 	public void update(boolean[] pKeys) {
@@ -114,6 +119,11 @@ public class Ship {
 			this.sonarPrototype005.endShape();
 			this.sonarPrototype005.popMatrix();
 		}
+	}
+	
+	public void kill(){
+		alive=false;
+		
 	}
 
 	public void controlCall(boolean[] pKeys) {

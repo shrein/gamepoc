@@ -60,12 +60,12 @@ public class Enemy {
 
 			boundingBox.update(pos, 20);
 
-			// ESTO DEBERIA ESTAR EN LA NAVE, NO EN LOS ENEMIGOS ...
+			// ESTO DEBERIA ESTAR EN LA logica, NO EN LOS ENEMIGOS ...
 			if (boundingBox
 					.collisionTest(myState.myShip.boundingBox)) {
-				//alive = false;
+				alive = false;
 				myState.myShip.vel.set(0, 0, 0);
-				myState.myShip.alive = false;
+				myState.myShip.kill();
 				for (int i = 0; i < myState.myShip.myCircles
 						.size(); i++) {
 					Circle currentCircle = (Circle) myState.myShip.myCircles

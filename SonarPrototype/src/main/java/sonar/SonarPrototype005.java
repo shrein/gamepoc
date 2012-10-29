@@ -17,6 +17,8 @@ public class SonarPrototype005 extends PApplet {
 	private final Environment e;
 	
 	LevelState myLevelState;
+	TitleState myTitleState;
+	State currentState;
 	PGraphics alphaBuffer;
 
 	
@@ -47,14 +49,21 @@ public class SonarPrototype005 extends PApplet {
 	public void setup() {
 		setupGraphics();
 		setupObjects();
-//		setupSound();
 		e.setup();
-		myLevelState.setup();
+//		setupSound();
+
 	}
 
 	private void setupObjects() {
 		pMillis = 0;
 		myLevelState= new LevelState(this);
+		myTitleState= new TitleState(this);
+		myTitleState.setup();
+		myLevelState.setup();
+		
+		currentState=myTitleState;
+		//currentState=myLevelState;
+		
 	}
 
 	private void setupGraphics() {
@@ -78,7 +87,7 @@ public class SonarPrototype005 extends PApplet {
 
 
 	public void draw() {
-		myLevelState.draw();
+		currentState.draw();
 	}
 
 	// ////////////////////////////Close Events////////////////////////////
@@ -121,11 +130,6 @@ public class SonarPrototype005 extends PApplet {
 		if ((key == CODED && keyCode == RIGHT) || key == 'D' || key == 'd') {
 			keys[_RIGHT] = true;
 		}
-
-		if ((key == DELETE || key == BACKSPACE || key == RETURN || key == ENTER)
-				|| (key == 'r' || key == 'R')) {
-			setupObjects();
-		}
 		
 		if(key == 'm' || key == 'M') {
 			if(e.isMuted()) {
@@ -167,6 +171,10 @@ public class SonarPrototype005 extends PApplet {
 
 		if ((key == CODED && keyCode == RIGHT) || key == 'D' || key == 'd') {
 			keys[_RIGHT] = false;
+		}
+		if ((key == DELETE || key == BACKSPACE || key == RETURN || key == ENTER)
+				|| (key == 'r' || key == 'R')) {
+			setupObjects();
 		}
 	}
 

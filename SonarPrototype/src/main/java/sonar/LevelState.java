@@ -16,7 +16,7 @@ public class LevelState implements State {
 	int enemiesKilled;
 	
 	public LevelState(SonarPrototype005 pParent){
-		this.myApplet=pParent;
+		myApplet=pParent;
 	}
 	
 
@@ -28,55 +28,56 @@ public class LevelState implements State {
 	
 	private void setupObjects() {
 		enemiesKilled = 0;
-		utility = new Utility(this.myApplet);
-		myShip = new Ship(this.myApplet,this);
-		myHUD = new HUD(this.myApplet,this);
+		utility = new Utility(myApplet);
+		myShip = new Ship(myApplet,this);
+		myShip.setup();
+		myHUD = new HUD(myApplet,this);
 		myEnemies = new ArrayList<Enemy>();
 		for (int i = 0; i < ENEMY_COUNT; i++) {
-			myEnemies.add(new Enemy(this.myApplet,this));
+			myEnemies.add(new Enemy(myApplet,this));
 		}
 	}
 
 
 	@Override
 	public  void draw(){
-		this.myApplet.tint(255, 255);
+		myApplet.tint(255, 255);
 
-		this.myApplet.blendMode(PApplet.BLEND);
-		this.myApplet.elapsed = PApplet.parseFloat(this.myApplet.millis() - this.myApplet.pMillis) / 1000;
-		this.myApplet.pMillis = this.myApplet.millis();
+		myApplet.blendMode(PApplet.BLEND);
+		myApplet.elapsed = PApplet.parseFloat(myApplet.millis() - myApplet.pMillis) / 1000;
+		myApplet.pMillis = myApplet.millis();
 
-		myShip.update(this.myApplet.keys);
+		myShip.update(myApplet.keys);
 		myHUD.update(myShip);
 
 		for (int i = 0; i < myEnemies.size(); i++) {
 			((Enemy) myEnemies.get(i)).update();
 		}
 
-		this.myApplet.fill(0, 64);
-		this.myApplet.noStroke();
-		this.myApplet.rect(-1, -1, this.myApplet.width + 2, this.myApplet.height + 2);
+		myApplet.fill(0, 64);
+		myApplet.noStroke();
+		myApplet.rect(-1, -1, myApplet.width + 2, myApplet.height + 2);
 
 		for (int i = 0; i < myEnemies.size(); i++) {
 			((Enemy) myEnemies.get(i)).draw();
 		}
 
 		// blendMode(BLEND);
-		this.myApplet.alphaBuffer.beginDraw();
-		this.myApplet.alphaBuffer.fill(0, 16);
-		this.myApplet.alphaBuffer.noStroke();
-		this.myApplet.alphaBuffer.rect(-1, -1, this.myApplet.width + 2, this.myApplet.height + 2);
+		myApplet.alphaBuffer.beginDraw();
+		myApplet.alphaBuffer.fill(0, 16);
+		myApplet.alphaBuffer.noStroke();
+		myApplet.alphaBuffer.rect(-1, -1, myApplet.width + 2, myApplet.height + 2);
 		// alphaBuffer.background(0);
-		this.myApplet.alphaBuffer.endDraw();
+		myApplet.alphaBuffer.endDraw();
 
-		this.myApplet.noStroke();
+		myApplet.noStroke();
 		// blend(alphaBuffer, 0, 0, width, height, 0, 0, width, height,
 		// MULTIPLY);
 
-		this.myApplet.blendMode(PApplet.DARKEST);
-		this.myApplet.image(this.myApplet.alphaBuffer, 0, 0);
+		myApplet.blendMode(PApplet.DARKEST);
+		myApplet.image(myApplet.alphaBuffer, 0, 0);
 
-		this.myApplet.blendMode(PApplet.BLEND);
+		myApplet.blendMode(PApplet.BLEND);
 		myShip.draw();
 		myHUD.draw();
 	}
