@@ -49,20 +49,18 @@ public class SonarPrototype005 extends PApplet {
 	public void setup() {
 		setupGraphics();
 		setupObjects();
+		currentState=myTitleState;
 		e.setup();
-//		setupSound();
 
 	}
 
 	private void setupObjects() {
-		pMillis = 0;
+		pMillis = millis();
 		myLevelState= new LevelState(this);
 		myTitleState= new TitleState(this);
 		myTitleState.setup();
 		myLevelState.setup();
-		
-		currentState=myTitleState;
-		//currentState=myLevelState;
+		changeState(myLevelState);
 		
 	}
 
@@ -87,7 +85,14 @@ public class SonarPrototype005 extends PApplet {
 
 
 	public void draw() {
+		elapsed = PApplet.parseFloat(millis() - pMillis) / 1000;
+		pMillis = millis();
+		currentState.update();
 		currentState.draw();
+	}
+	
+	public void changeState(State pState){
+		currentState=pState;
 	}
 
 	// ////////////////////////////Close Events////////////////////////////

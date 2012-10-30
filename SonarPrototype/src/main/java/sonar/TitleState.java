@@ -20,15 +20,16 @@ class TitleState implements State {
 	public  void update(){
 		if(myApplet.keyPressed){
 			myApplet.currentState=myApplet.myLevelState;
+			//myApplet.changeState(myApplet.myLevelState);
 		}
 
 	}
 	@Override
 	public  void draw(){
-		update();
 		   myApplet.background(0);
 		   myApplet.fill(255);
 		   myApplet.text("sonar (working title) POC v007 \npress any key to play", myApplet.width/4, myApplet.height*2/3);	   
+		    myApplet.text("x,c + arrows. backspace or enter to retry. m: mute", myApplet.width/4, myApplet.height*2/3+40);
 	}
 
 	

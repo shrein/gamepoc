@@ -17,6 +17,9 @@ PFont infoFont;
 
   float maxBullet;
   float bulletTiming;
+  
+  boolean gameOver;
+  boolean victory;
 
   public HUD(SonarPrototype005 pApplet,LevelState pState) {
 	myState=pState;
@@ -24,6 +27,8 @@ PFont infoFont;
 	infoFont=myApplet.loadFont("SansSerif-10.vlw");
     myApplet.textFont(infoFont);
     myState.enemiesKilled=0;
+    victory=false;
+    gameOver=false;
   }
 
   public void update(Ship pShip) {
@@ -32,6 +37,12 @@ PFont infoFont;
 
     maxBullet=pShip.bulletDelay;
     bulletTiming=pShip.bulletElapsed;
+    
+    gameOver=!pShip.alive;
+    if(myState.enemiesKilled==LevelState.ENEMY_COUNT||myState.mcGuffinsGrabbed==LevelState.MCGUFFIN_COUNT){
+    	victory=true;
+    	
+    }
   }
 
   public void draw() {
@@ -57,8 +68,17 @@ PFont infoFont;
 
 
     myApplet.text(SonarPrototype005.nf(myApplet.frameRate, 2, 2)+"fps", 60, 12);
-    myApplet.text(SonarPrototype005.nf(myState.enemiesKilled, 2, 0)+"  enemies killed", 5, 24);
-    myApplet.text("sonar (working title) POC v005. x,c + arrows or wasd + mouse clicks. backspace or enter: reset. m: mute", 5, myApplet.height-5);
+    myApplet.text(SonarPrototype005.nf(myState.enemiesKilled, 2, 0)+"/"+SonarPrototype005.nf(LevelState.ENEMY_COUNT, 2, 0)+"  enemies killed", 5, 24);
+    myApplet.text(SonarPrototype005.nf(myState.mcGuffinsGrabbed, 2, 0)+"/"+SonarPrototype005.nf(LevelState.MCGUFFIN_COUNT, 2, 0)+"  mcGuffins grabbed", 5, 36);
+    
+    if(gameOver){
+		   myApplet.text("GAME OVER YEAH! \nbackspace or enter to retry", myApplet.width/4, myApplet.height*2/3);	   
+   	}
+    if(victory){
+		   myApplet.text("A WINNER IS YOU \nbackspace or enter to retry", myApplet.width/4, myApplet.height*2/3);	   
+	}
+ 
+    
     myApplet.popStyle();
   }
 }
