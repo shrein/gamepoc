@@ -49,7 +49,7 @@ public class McGuffin {
 
 		if (alive) {
 			timer+=myApplet.elapsed;
-			SonarPrototype005.println(timer);
+			//SonarPrototype005.println(timer);
 			if(timer>=period){
 				timer=timer-period;
 				

@@ -1,9 +1,9 @@
 package engine;
 
 public enum SoundEnum {
-	BULLET ("pac.wav", null, null),
-	CIRCLE ("puwuw.wav", null, null),
-	ENEMY ("puc.wav", null, 0.001f),
+	BULLET ("pac.wav", null, 0.1f),
+	CIRCLE ("puwuw.wav", null, 0.1f),
+	ENEMY ("puc.wav", null, 0.0005f),
 	MCGUFFIN ("pururururu.wav", null, 0.001f);
 	
 	public final String filename;
