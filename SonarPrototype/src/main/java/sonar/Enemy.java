@@ -20,11 +20,12 @@ public class Enemy extends SonarModel {
 	private double drag = 0.95d;
 	private double acceleration = 25d;
 	private boolean lucky;
+	
+	// Event variables
+	private boolean dieEvent = false;
 
-	public Enemy(SonarPrototype005 sonarPrototype005) {
-		this.sonarPrototype005 = sonarPrototype005;
-		this.e = sonarPrototype005.getE();
-		boundingBox = new BBox(SonarPrototype005.CENTER);
+	public Enemy() {
+		
 		myCircle = new Sonar(this.sonarPrototype005);
 
 		pos = new PVector(

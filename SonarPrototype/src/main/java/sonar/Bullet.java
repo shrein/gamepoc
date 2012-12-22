@@ -1,44 +1,36 @@
 package sonar;
 
 import processing.core.PVector;
-import engine.Model;
+import engine.Vector;
 
 public class Bullet extends SonarModel {
 
-	double speed = 480;
-	BBox boundingBox;
+	private double speed = 480d;
 
-	boolean alive;
-	float life = 2;
-	float age;
+	private int life;
+	private int age;
 
 	public Bullet(Ship ship) {
-
-		this.sonarPrototype005 = sonarPrototype005;
-		boundingBox = new BBox(SonarPrototype005.CENTER);
-
-		pos = new PVector(0, 0);
-		vel = new PVector(0, 0);
+		life = 2;
+		age = 0;
+		position = new Vector(0, 0);
+		velocity = new Vector(0, 0);
 		alive = false;
 	}
 
-	public void spawn(PVector pPos, double pDir) {
-		pos.set(pPos);
-		dir = pDir;
-		vel = new PVector(SonarPrototype005.sin(dir),
-				SonarPrototype005.cos(dir));
-		vel.mult(speed);
+	public void spawn(Vector _position, double _theta) {
+		position.set(_position);
+		theta = _theta;
+		velocity = new Vector(Math.sin(_theta), Math.cos(_theta));
+		velocity.mult(speed);
 		alive = true;
 		age = 0;
 	}
 
 	public void update(double elapsed) {
 		if (alive) {
-			pos.add(new PVector(vel.x * this.sonarPrototype005.elapsed, -vel.y
-					* this.sonarPrototype005.elapsed));
-			age += this.sonarPrototype005.elapsed;
-
-			boundingBox.update(pos, 5);
+			position.add(velocity.x * elapsed, velocity.y * elapsed));
+			age += elapsed;
 
 			if (age >= life) {
 				alive = false;
