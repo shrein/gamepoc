@@ -68,7 +68,7 @@ Crafty.scene('Game', function() {
 Crafty.scene('Victory', function() {
     // Display some text in celebration of the victory
     Crafty.e('2D, DOM, Text')
-	.text('All villages visited!')
+	.text('Oh my! Mighty hyrulean astro plumber, you\'ve collected all blocks!')
 	.attr({ x: 0, y: Game.height()/2 - 24, w: Game.width() })
 	.css($text_css);
 
@@ -78,7 +78,7 @@ Crafty.scene('Victory', function() {
     // After a short delay, watch for the player to press a key, then restart
     // the game when a key is pressed
     var delay = true;
-    setTimeout(function() { delay = false; }, 5000);
+    setTimeout(function() { delay = false; }, 500);
     this.restart_game = Crafty.bind('KeyDown', function() {
 	if (!delay) {
 	    Crafty.scene('Game');
@@ -107,6 +107,7 @@ Crafty.scene('Loading', function(){
         'assets/platformer-tiles.png',
 	'assets/16x16_forest_2.gif',
 	'assets/hunter.png',
+        'assets/hud_p1_18.png',
 	'assets/door_knock_3x.mp3',
 	'assets/door_knock_3x.ogg',
 	'assets/door_knock_3x.aac',
@@ -133,9 +134,9 @@ Crafty.scene('Loading', function(){
 
 	// Define the PC's sprite to be the first sprite in the third row of the
 	//  animation sprite map
-	Crafty.sprite(16, 'assets/hunter.png', {
-	    spr_player:  [0, 2],
-	}, 0, 2);
+	Crafty.sprite(18, 'assets/hud_p1_18.png', {
+	    spr_player:  [0, 0]
+	});
 
 	// Define our sounds for later use
 	Crafty.audio.add({
