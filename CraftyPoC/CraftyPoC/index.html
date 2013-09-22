@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="lib/crafty.js"></script>
+    <script src="src/game.js"></script>
+    <script src="src/components.js"></script>
+    <script src="src/scenes.js"></script>
+    <script>
+      window.addEventListener('load', Game.start);
+    </script>
+    <style type="text/css" media="screen">
+      body {
+      background: black;
+      text-align: center;
+      color: #DDD;
+      font-family: Arial;
+      }
+
+      .controls {
+      color: #BBB;
+      }
+
+      .small {
+      font-size: 9px;
+      }
+
+      #cr-stage { margin: 20px auto 0; }
+
+      .bottom {
+      font-size: 12px;
+      color: #888;
+      margin-top: 50px;
+      }
+
+      .bottom a {
+      color: #AAA;
+      }
+    </style>
+    <title>Crafty PoC</title>
+  </head>
+  <body>
+    <h2>Crafty PoC</h2>
+
+    <p>This is no Zelda, but you've got a hookshot (kinda). Get all yellow blocks, mighty plumber.</p>
+
+    <p class="controls">Controls: Click in the direction you want. Cannot change course during flight.</p>
+
+    <div id="cr-stage"></div>
+
+    <p class="small">All sprites from http://opengameart.org/content/platformer-art-deluxe. Based on http://buildnewgames.com/introduction-to-crafty/.</p>
+
+  </body>
+</html>

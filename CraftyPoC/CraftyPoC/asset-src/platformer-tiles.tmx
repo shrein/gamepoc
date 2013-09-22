@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="35" tileheight="35">
+ <tileset firstgid="1" name="platformer-tiles" tilewidth="35" tileheight="35">
+  <image source="../assets/platformer-tiles.png" width="385" height="385"/>
+ </tileset>
+ <layer name="Capa de Patrones 1" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApIBwAGQAAB
+  </data>
+ </layer>
+</map>
