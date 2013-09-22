@@ -1,30 +1,27 @@
 package sonar;
 
-import processing.core.PApplet;
-import processing.core.PVector;
+import javax.inject.Inject;
+
 import engine.PhysicsManager;
 import engine.Vector;
 
 /**
- * @author fdevant
+ * @author fdevant, shrein
  */
-public class Utility extends PhysicsManager {
+public class Utility {
 
+	@Inject PhysicsManager manager;
 	private int height;
 	private int width;
 
-	public Utility(PApplet parent) {
-		super(parent);
-
-		this.height = parent.getHeight();
-		this.width = parent.getWidth();
+	public Utility() {
+		this.height = manager.getParent().getHeight();
+		this.width = manager.getParent().getWidth();
 	}
 
-	public Vector loopSpace(PVector pPos) {
-		float x, y;
-
-		x = pPos.x;
-		y = pPos.y;
+	public Vector loopSpace(Vector pPos) {
+		double x = pPos.x;
+		double y = pPos.y;
 
 		if (pPos.x > height) {
 			x = 0;

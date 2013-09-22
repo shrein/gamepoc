@@ -1,6 +1,8 @@
 package sonar;
 
-import org.omg.CORBA.Environment;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import processing.core.PVector;
 import engine.Model;
@@ -8,25 +10,22 @@ import engine.SoundEnum;
 
 public class Enemy extends SonarModel {
 
-	private SonarPrototype005 sonarPrototype005;
-	private Environment e;
+	@Inject
+	private Utility utility;
 
-	BBox boundingBox;
+	// Model objects managed by this root model object.
+	private Sonar sonar;
 
-	Sonar myCircle;
+	// Custom state variables.
+	private double drag = 0.95d;
+	private double acceleration = 25d;
+	private boolean lucky;
+	
+	// Event variables
+	private boolean dieEvent = false;
 
-	PVector pos, vel;
-	float dir;
-	float speed = 25;// speed multiplier
-	float drag = 0.95f;
-	boolean lucky;
-
-	boolean alive;
-
-	public Enemy(SonarPrototype005 sonarPrototype005) {
-		this.sonarPrototype005 = sonarPrototype005;
-		this.e = sonarPrototype005.getE();
-		boundingBox = new BBox(SonarPrototype005.CENTER);
+	public Enemy() {
+		
 		myCircle = new Sonar(this.sonarPrototype005);
 
 		pos = new PVector(

@@ -7,6 +7,8 @@ import static java.lang.Math.sin;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import engine.Vector;
 
 /**
@@ -20,7 +22,7 @@ public class Ship extends SonarModel {
 
 	private static final double SHIP_RADIUS = 15d;
 
-	// TODO:Maybe shouldn't be here...
+	@Inject
 	private Utility utility;
 
 	// Model objects managed by this root model object.
@@ -37,20 +39,20 @@ public class Ship extends SonarModel {
 	// Event variables
 	private boolean dieEvent = false;
 
-	public Ship(Vector position, Utility utility) {
+	public Ship(Vector _position) {
 		super();
 		alive = true;
 		radius = SHIP_RADIUS;
-
+		
 		sonar = new Sonar();
 		bullets = new ArrayList<Bullet>();
 		for (int i = 0; i < maxBullets; i++) {
-			// myBullets.add(new Bullet());
+			Bullet bullet = new Bullet(this);
+			bullets.add(bullet);
 		}
 
-		this.position = new Vector(position.x, position.y);
-		this.velocity = new Vector(0f, 0f);
-		this.utility = utility;
+		position = new Vector(_position);
+		velocity = new Vector();
 	}
 
 	/**
@@ -158,7 +160,5 @@ public class Ship extends SonarModel {
 	@Override
 	public CollisionEnum getCollisionClass() {
 		return CollisionEnum.SHIP;
-	}
-	
-	
+	}	
 }

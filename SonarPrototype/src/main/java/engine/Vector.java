@@ -40,6 +40,11 @@ public class Vector extends PVector {
 		super.add((float) x, (float) y, (float) z);
 	}
 
+	// Instance methods
+	public void add(double x, double y) {
+		super.add((float) x, (float) y, 0f);
+	}
+
 	public void div(double n) {
 		super.div((float) n);
 	}
@@ -52,12 +57,17 @@ public class Vector extends PVector {
 		super.limit((float) max);
 	}
 
-	public void mult(double n) {
+	public Vector mult(double n) {
 		super.mult((float) n);
+		return this;
 	}
 
 	public void sub(double x, double y, double z) {
 		super.sub((float) x, (float) y, (float) z);
+	}
+
+	public void set(Vector v) {
+		super.set(v);
 	}
 
 }
